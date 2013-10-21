@@ -4,7 +4,7 @@ Raster.gs
 Raster.gs is a SCSS based grid system with the following features:
 * you can use more than one grid and choose different grids for different devices (breakpoints!)
 * nest grids (but never more than three levels deep; cue Inception Soundtrack)
-create grids with uniform-width columns or completely weird ratio-based ones
+* create grids with uniform-width columns or completely weird ratio-based ones
 * possibility to leave columns out
 * independence of any frameworks
 * support for older browsers

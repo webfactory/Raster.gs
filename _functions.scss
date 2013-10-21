@@ -1,0 +1,85 @@
+//calculate the widths of each column related to the given ratios and return each value in a list
+@function grid-calculateColumnWidths($ratios, $gutterWidth){
+    $columns: length($ratios);
+    $columnWidths: ();
+    $totalGutterWidth: $gutterWidth * ($columns - 1);
+    @each $ratio in $ratios {
+        $width: (((100 - $totalGutterWidth) / $columns) * $ratio);
+        $columnWidths: append($columnWidths, $width);
+    }
+    @return $columnWidths;
+}
+
+//choose a column and get its width from the list created before
+@function grid-getWidth($ratios, $gutterWidth, $from, $to: 1){
+    $columns: length($ratios);
+    @if $to > 1 {
+        $columnWidth: 0;
+        @for $column from $from to ($to + 1) {
+            @if $column < $columns {
+                $columnWidth: $columnWidth + nth(grid-calculateColumnWidths($ratios, $gutterWidth), $column);
+            }
+        }
+        @if $to == $columns {
+            $columnWidth: $columnWidth + nth(grid-calculateColumnWidths($ratios, $gutterWidth), $columns);
+        }
+        $width: $columnWidth + ($gutterWidth * ($to - $from));
+        @return unquote($width + '%');
+    }
+    @else {
+        @return unquote(nth(grid-calculateColumnWidths($ratios, $gutterWidth), $from) + '%');
+    }
+}
+
+//calculate the margins of each column related to the given ratios and return each value in a list
+@function grid-calculateColumnMargins($ratios, $gutterWidth){
+    $columnWidths: grid-calculateColumnWidths($ratios, $gutterWidth);
+    $columns: length($ratios);
+    $marginList: ();
+    $margin: 0;
+    @for $column from 1 through $columns {
+        @for $m from 1 through ($column){
+            @if $m == 1 {
+                $margin: 0;
+            } @else {
+                $margin: $margin + nth($columnWidths, ($m - 1)) + ($gutterWidth);
+            }
+        }
+        $marginList: append($marginList, $margin);
+    }
+    @return $marginList;
+}
+
+//choose a column and get its margin from the list created before
+@function grid-getMargin($ratios, $gutterWidth, $n){
+    $result: nth(grid-calculateColumnMargins($ratios, $gutterWidth), ($n));
+    @if $result == 0 {
+        @return $result;
+    }
+    @if $result > 0 {
+        @return unquote($result + '%');
+    }
+}
+
+//generate the styles for each column
+@mixin grid-column($gutterWidth, $ratios, $column, $to:1) {
+    $from: $column;
+    //because of possible rounding errors we float the last column to the right
+    @if $column == length($ratios) or $to == length($ratios) and $column > 1 {
+        float: right;
+        margin-right: 0;
+    }
+    //float to the left if it's not the last column
+    @else {
+        display: block;
+        float: left;
+        margin-right: -100%;
+    }
+    //first column should always be on the left
+    @if $column == 1 {
+        clear: both;
+    }
+    @include clearfix;
+    margin-left: grid-getMargin($ratios, $gutterWidth, $column);
+    width: grid-getWidth($ratios, $gutterWidth, $from, $to);
+}

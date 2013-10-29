@@ -5,50 +5,47 @@
 @import 'functions';
 
 @mixin grid($columns, $prefix:g, $gutterWidth: 2, $combinations: true) {
-    //if entered parameters are correct, continue with generating the styles
-    @else {
-        $columnLength: length($columns);
-        //if $columns contains only a number instead of a list of ratios, a ratios list is generated where all ratios are set to 1
-        @if $columnLength == 1 {
-            $columnLength: $columns;
-            $ratios: ();
-            @for $n from 1 through $columns {
-                $ratios: append($ratios, 1);
-            }
-            $columns: $ratios;
+    $columnLength: length($columns);
+    //if $columns contains only a number instead of a list of ratios, a ratios list is generated where all ratios are set to 1
+    @if $columnLength == 1 {
+        $columnLength: $columns;
+        $ratios: ();
+        @for $n from 1 through $columns {
+            $ratios: append($ratios, 1);
         }
-        //create the selectors for each column and include their styles
-        @for $column from 1 through $columnLength {
-            .#{$prefix}-#{$column} {
-                @include grid-column($gutterWidth, $columns, $column);
-            }
+        $columns: $ratios;
+    }
+    //create the selectors for each column and include their styles
+    @for $column from 1 through $columnLength {
+        .#{$prefix}-#{$column} {
+            @include grid-column($gutterWidth, $columns, $column);
         }
-        //if neededcreate the combined selectors and include their styles
-        @if $combinations {
-            @for $from from 1 through $columnLength {
-                @for $to from ($from + 1) through $columnLength {
-                    .#{$prefix}-#{$from}-#{$to} {
-                        @include grid-column($gutterWidth, $columns, $from, $to);
-                    }
+    }
+    //if neededcreate the combined selectors and include their styles
+    @if $combinations {
+        @for $from from 1 through $columnLength {
+            @for $to from ($from + 1) through $columnLength {
+                .#{$prefix}-#{$from}-#{$to} {
+                    @include grid-column($gutterWidth, $columns, $from, $to);
                 }
             }
         }
+    }
 
-        //provide a more semantic selector for full width columns
-        .#{$prefix}-full {
-            clear: left;
-            margin-left: 0;
-            width: 100%;
-        }
+    //provide a more semantic selector for full width columns
+    .#{$prefix}-full {
+        clear: left;
+        margin-left: 0;
+        width: 100%;
+    }
 
-        //provide a selector for hidden columns
-        .#{$prefix}-hidden {
-            display: none !important;
-        }
+    //provide a selector for hidden columns
+    .#{$prefix}-hidden {
+        display: none !important;
+    }
 
-        //provide a selector for columns that are not the "first column" but that should start in a new row
-        .#{$prefix}-first {
-            clear: both;
-        }
+    //provide a selector for columns that are not the "first column" but that should start in a new row
+    .#{$prefix}-first {
+        clear: both;
     }
 }

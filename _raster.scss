@@ -5,16 +5,6 @@
 @import 'functions';
 
 @mixin grid($columns, $prefix:g, $gutterWidth: 2, $combinations: true) {
-    //catch out mistakes in the entered parameters and return an error
-    @if type_of($gutterWidth) != number {
-        @warn 'Raster.gs: value of $gutterWidth of #{$prefix} must be a number';
-    } @else if type_of($columns) == string {
-        @warn 'Raster.gs: value of $columns of #{$prefix} must be either a number or a list';
-    } @else if type_of($combinations) != bool {
-        @warn 'Raster.gs: value of $combinations of #{$prefix} must be a boolean';
-    } @else if type_of($prefix) != string {
-        @warn 'Raster.gs: value of $prefix of #{$prefix} must be a string';
-    }
     //if entered parameters are correct, continue with generating the styles
     @else {
         $columnLength: length($columns);

@@ -27,9 +27,14 @@
         @return unquote($width + '%');
     }
     @else {
-        @return unquote(nth(grid-calculateColumnWidths($ratios, $gutterWidth), $from) + '%');
+        @return nth(grid-calculateColumnWidths($ratios, $gutterWidth), $from);
     }
 }
+
+@function grid-getWidthAndUnit($ratios, $gutterWidth, $from, $to: 1){
+    @return unquote(grid-getWidth($ratios, $gutterWidth, $from, $to: 1) + '%');
+}
+
 
 //calculate the margins of each column related to the given ratios and return each value in a list
 @function grid-calculateColumnMargins($ratios, $gutterWidth){
@@ -53,6 +58,11 @@
 //choose a column and get its margin from the list created before
 @function grid-getMargin($ratios, $gutterWidth, $n){
     $result: nth(grid-calculateColumnMargins($ratios, $gutterWidth), ($n));
+    @return $result;
+}
+
+@function grid-getMarginAndUnit($ratios, $gutterWidth, $n){
+    $result: nth(grid-calculateColumnMargins($ratios, $gutterWidth), ($n));
     @if $result == 0 {
         @return $result;
     }
@@ -74,12 +84,12 @@
         margin-right: 0;
     } @else {
         @if $old-ie == false {
-            margin-left: grid-getMargin($ratios, $gutterWidth, $column);
+            margin-left: grid-getMarginAndUnit($ratios, $gutterWidth, $column);
             margin-right: -100%;
         } @else {
             margin-left: $gutterWidth;
         }
         float: left;
     }
-    width: grid-getWidth($ratios, $gutterWidth, $from, $to);
+    width: grid-getWidthAndUnit($ratios, $gutterWidth, $from, $to);
 }

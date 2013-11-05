@@ -64,22 +64,22 @@
 //generate the styles for each column
 @mixin grid-column($gutterWidth, $ratios, $column, $to:1) {
     $from: $column;
+    //first column should always start a new row
+    @if $column == 1 {
+        clear: both;
+    }
     //because of possible rounding errors we float the last column to the right
     @if $column == length($ratios) or $to == length($ratios) and $column > 1 {
         float: right;
         margin-right: 0;
-    }
-    //float to the left if it's not the last column
-    @else {
-        display: block;
+    } @else {
+        @if $old-ie == false {
+            margin-left: grid-getMargin($ratios, $gutterWidth, $column);
+            margin-right: -100%;
+        } @else {
+            margin-left: $gutterWidth;
+        }
         float: left;
-        margin-right: -100%;
     }
-    //first column should always be on the left
-    @if $column == 1 {
-        clear: both;
-    }
-    @include clearfix;
-    margin-left: grid-getMargin($ratios, $gutterWidth, $column);
     width: grid-getWidth($ratios, $gutterWidth, $from, $to);
 }

@@ -15,9 +15,25 @@ If you already have one in your project you can just use that one.
 If you don't have one, you can get it from here: https://github.com/mmintel/clearfix
 
 ## Installation
+
 Import the _raster.scss file into your Sass files and you are done.
 ```SCSS
 @import 'PATH/Raster.gs/_raster.scss';
+```
+
+## Package manager
+Raster.gs is registered in Packagist and Bower.
+### Install via Bower
+Go to your project folder and type the following command in your console
+```
+bower install raster.gs
+
+```
+
+### Install via Composer
+Add this line to your requirements in composer.json
+```
+"webfactory/raster.gs": "dev-master"
 ```
 
 ## Using the grid

@@ -18,10 +18,5 @@
     ],
     "support": {
         "email": "info@webfactory.de"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-default": "1.1.1"
-        }
     }
 }

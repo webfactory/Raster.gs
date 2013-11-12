@@ -1,5 +1,5 @@
 {
-    "name": "webfactory/Raster.gs",
+    "name": "webfactory/raster.gs",
     "description": "Raster.gs is a SCSS based grid system",
     "keywords": ["grid", "sass", "scss", "css"],
     "homepage": "http://www.raster.gs",

@@ -127,7 +127,7 @@ You can also nest different grids
 ```
 
 ## Browsersupport
-Raster.gs should work  in all modern browsers and in old browsers down to Internet Explorer 7.
+Raster.gs should work  in all modern browsers and in old browsers down to Internet Explorer 7 (but sadly Internet Explorer 7 does not support offsetted columns).
 We tested it in the following ones and didn't find a bug yet:
 * Internet Explorer 7, 8, 9, 10, 11 Preview
 * Firefox 3.0, 3.6, 8.0, 24 (Windows)

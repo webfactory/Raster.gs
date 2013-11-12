@@ -1,0 +1,27 @@
+{
+    "name": "webfactory/Raster.gs",
+    "description": "Raster.gs is a SCSS based grid system",
+    "keywords": ["grid", "sass", "scss", "css"],
+    "homepage": "http://www.raster.gs",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Marc Mintel",
+            "email": "mm@webfactory.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Webfactory GmbH",
+            "email": "info@webfactory.de",
+            "role": "Team"
+        }
+    ],
+    "support": {
+        "email": "info@webfactory.de"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-default": "1.1.0"
+        }
+    }
+}

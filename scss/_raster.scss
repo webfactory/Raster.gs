@@ -1,4 +1,5 @@
 @import 'functions';
+$old-ie: false !default;
 
 @mixin grid($columns, $prefix:g, $gutterWidth: 2, $combinations: true) {
     $columnLength: length($columns);

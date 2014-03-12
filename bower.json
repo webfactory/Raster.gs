@@ -5,6 +5,9 @@
         "*.md",
         "*.json"
     ],
+    "main": [
+        "dist/default.css"
+    ],
     "keywords": [
         "scss",
         "sass",

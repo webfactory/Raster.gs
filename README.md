@@ -10,16 +10,15 @@ Raster.gs is a SCSS based grid system with the following features:
 * support for older browsers
 
 ## Requirements
-A mixin "clearfix" which contains the micro clearfix from Nicolas Gallagher is required. 
-If you already have one in your project you can just use that one.
-If you don't have one, you can get it from here: https://github.com/mmintel/clearfix
+Sass > 3.2
 
 ## Installation
 
-Import the _raster.scss file into your Sass files and you are done.
+You can either link to the css file in the "dist" folder if you want to use it immediately or you can import the _raster.scss file into your Sass files to import the needed mixins and start creating your own grids.
 ```SCSS
 @import 'PATH/Raster.gs/_raster.scss';
 ```
+I have prepared a default setup which comes up with a grid like twitter bootstrap has included.
 
 ### Package manager
 Raster.gs is registered in Packagist and Bower.
@@ -99,14 +98,16 @@ If you have many columns this option could blow up your css file size. So turn i
 
 #### Helper Classes
 Every grid that is generated brings the following helper classes
+* grid-row: this is a wrapper for your columns (it will only be generated once)
 * PREFIX-hidden: hides an element.
 * PREFIX-full: sets an element to full width.
 * PREFIX-first: clears the floating of an element. Use this if you want a row to start at another column instead of column one.
 
 ### The HTML part
-On the contrary to usual grids like the one from Twitter Bootstrap or Foundation this grid system creates "real" columns and not just ranges. Imagine your content does not go from this column to that column, but your content fills in each column. By that you get the advantage to reposition content for different grids. In the following code example your content fills the first column for desktop, the first and the second column for tablets and all columns for mobile.
 ```HTML
-<div class="desktop-1 tablet-1-2 mobile-full">Here is your content</div>
+<div class="grid-row">
+    <div class="desktop-1 tablet-1-2 mobile-full">Here is your content</div>
+</div>
 ```
 
 #### Nesting

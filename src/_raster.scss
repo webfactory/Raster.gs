@@ -1,4 +1,6 @@
-$old-ie: false !default;
+$old-ie: false !global;
+$rs-grid-row: '.grid-row' !global;
+$rs-grid-row-set: false;
 
 //calculate the widths of each column related to the given ratios and return each value in a list
 @function grid-calculateColumnWidths($ratios, $gutterWidth){
@@ -103,9 +105,9 @@ $old-ie: false !default;
             @include grid-column($gutterWidth, $columns, $column);
         }
     }
-    //if neededcreate the combined selectors and include their styles
+    //if needed: create the combined selectors and include their styles
     @if $combinations {
-        @for $from from 1 through $columnLength {
+        @for $from from 1 through ($columnLength - 1) { //remove 1 from the list because we don't want a combination for the last column
             @for $to from ($from + 1) through $columnLength {
                 .#{$prefix}-#{$from}-#{$to} {
                     @include grid-column($gutterWidth, $columns, $from, $to);
@@ -123,11 +125,27 @@ $old-ie: false !default;
 
     //provide a selector for hidden columns
     .#{$prefix}-hidden {
-        display: none !important;
+        display: none;
     }
 
     //provide a selector for columns that are not the "first column" but that should start in a new row
     .#{$prefix}-first {
         clear: both;
     }
+}
+
+@if not $rs-grid-row-set { //create the row only once
+    #{$rs-grid-row} {
+        *zoom: 1;
+        &:before,
+        &:after {
+            content: " ";
+            display: table;
+        }
+
+        &:after {
+            clear: both;
+        }
+    }
+    $rs-grid-row-set: true;
 }

@@ -1,7 +1,6 @@
 {
     "name": "raster.gs",
-    "version": "1.1.2",
-    "main": "scss/_raster.scss",
+    "version": "1.1.4",
     "ignore": [
         "*.md",
         "*.json"

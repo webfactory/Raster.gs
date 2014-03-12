@@ -16,7 +16,7 @@ Sass > 3.2
 
 You can either link to the css file in the "dist" folder if you want to use it immediately or you can import the _raster.scss file into your Sass files to import the needed mixins and start creating your own grids.
 ```SCSS
-@import 'PATH/Raster.gs/_raster.scss';
+@import 'PATH/raster.gs/src/_raster.scss';
 ```
 I have prepared a default setup which comes up with a grid like twitter bootstrap has included.
 

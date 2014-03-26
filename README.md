@@ -123,17 +123,21 @@ Every grid that is generated brings the following helper classes
 #### Nesting
 As all grid classes are based on relative units (percentages) you can simply nest them.
 ```HTML
-<div class="desktop-1">
-    <div class="desktop-1"></div>
-    <div class="desktop-2"></div>
-    <div class="desktop-3-4"></div>
+<div class="grid-row">
+    <div class="desktop-1">
+        <div class="desktop-1"></div>
+        <div class="desktop-2"></div>
+        <div class="desktop-3-4"></div>
+    </div>
 </div>
 ```
 You can also nest different grids
 ```HTML
-<div class="desktop-1">
-    <div class="tablet-1"></div>
-    <div class="tablet-2-4"></div>
+<div class="grid-row">
+    <div class="desktop-1">
+        <div class="tablet-1"></div>
+        <div class="tablet-2-4"></div>
+    </div>
 </div>
 ```
 

@@ -18,7 +18,15 @@ You can either link to the css file in the "dist" folder if you want to use it i
 ```SCSS
 @import 'PATH/raster.gs/src/_raster.scss';
 ```
-I have prepared a default setup which comes up with a grid like twitter bootstrap has included.
+I have prepared a default setup which comes up with a grid like twitter bootstrap has included. You can choose between the SCSS or CSS file.
+
+```SCSS
+@import 'PATH/raster.gs/src/default.scss';
+```
+
+```HTML
+<link rel="stylesheet" type="text/css" href="PATH/raster.gs/dist/default.css" />
+```
 
 ### Package manager
 Raster.gs is registered in Packagist and Bower.

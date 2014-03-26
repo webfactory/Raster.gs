@@ -20,10 +20,12 @@ You can either link to the css file in the "dist" folder if you want to use it i
 ```
 I have prepared a default setup which comes up with a grid like twitter bootstrap has included. You can choose between the SCSS or CSS file.
 
+**Import in your SCSS files:**
 ```SCSS
 @import 'PATH/raster.gs/src/default.scss';
 ```
 
+**Import the compiled css file in your HTML code:**
 ```HTML
 <link rel="stylesheet" type="text/css" href="PATH/raster.gs/dist/default.css" />
 ```

@@ -1,5 +1,5 @@
-$old-ie: false !global;
-$rs-grid-row: '.grid-row' !global;
+$old-ie: false !default;
+$rs-grid-row: '.grid-row' !default;
 $rs-grid-row-set: false;
 
 //calculate the widths of each column related to the given ratios and return each value in a list

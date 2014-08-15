@@ -62,7 +62,7 @@ This is a prefix for the CSS classes that are created, it must be a string. The 
 ```SCSS
 @include grid($columns: 4, $prefix: test);
 ```
-The code above creates the following CSS classes:
+The code above creates the following CSS classes which present columns from 1 to 4:
 * test-1
 * test-2
 * test-3
@@ -103,6 +103,8 @@ Additionally to the generated CSS classes mentioned before the above code create
 * test-2-3
 * test-2-4
 * test-3-4
+
+These classes represent the combinations of your columns. For example: test-1-2 fills the space of the first two columns, test-1-4 fills the space of all four columns.
 
 If you have many columns this option could blow up your css file size. So turn it off, if you don't need them.
 

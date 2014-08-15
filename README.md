@@ -9,6 +9,9 @@ Raster.gs is a SCSS based grid system with the following features:
 * independence of any frameworks
 * support for older browsers
 
+## Demo
+http://codepen.io/wfmarc/pen/ACrhv
+
 ## Requirements
 Sass > 3.2
 

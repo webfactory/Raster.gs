@@ -1,6 +1,5 @@
 {
     "name": "raster.gs",
-    "version": "1.1.7",
     "ignore": [
         "*.md",
         "*.json"

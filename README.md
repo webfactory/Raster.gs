@@ -1,4 +1,4 @@
-Raster.gs
+Raster.gs [![Build Status](https://travis-ci.org/webfactory/Raster.gs.svg)](https://travis-ci.org/webfactory/Raster.gs)
 =========
 
 Raster.gs is a SCSS based grid system with the following features:

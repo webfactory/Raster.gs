@@ -1,0 +1,33 @@
+/*
+ * choose a column and get its margin from the list created before
+ * ---
+ * @access private
+ * ---
+ * @param {list}   $ratios      - a list of ratios representing the columns
+ * @param {number} $gutterWidth - number for spacing between columns
+ * @param {number} $n           - position of column to pick from list
+ * ---
+ * @returns {measure}
+ */
+
+@function _rs-getColumnMargin($ratios, $gutterWidth, $n){
+    @if type-of($ratios) != list {
+        @warn '#{$ratios} is no valid input for $ratios of _rs-getColumnMargin.';
+        @return false;
+    }
+    @if type-of($gutterWidth) != number or $gutterWidth < 0 {
+        @warn '#{$gutterWidth} is no valid input for $gutterWidth of _rs-getColumnMargin.';
+        @return false;
+    }
+    @if type-of($n) != number or $n < 0 or $n > length($ratios) {
+        @warn '#{$n} is no valid input for $n of _rs-getColumnMargin.';
+        @return false;
+    }
+    $result: nth(_rs-columnMargins($ratios, $gutterWidth),$n);
+    @if $result == 0 {
+        @return $result;
+    }
+    @if $result > 0 {
+        @return $result * 1%;
+    }
+}

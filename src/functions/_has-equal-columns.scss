@@ -1,0 +1,17 @@
+/*
+ * checks whether columns are all equal to each other
+ * ---
+ * @access private
+ * ---
+ * @returns {bool}
+ */
+
+@function _rs-hasEqualColumns($ratios) {
+    $hasEqualColumns: true;
+    @each $item in $ratios {
+        @if $item != 1 {
+            $hasEqualColumns: false;
+        }
+    }
+    @return $hasEqualColumns;
+}

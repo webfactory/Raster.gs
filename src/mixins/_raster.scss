@@ -1,0 +1,134 @@
+/*
+ * create a grid system
+ * ---
+ * @access public
+ * ---
+ * @param {list|number} $columns              - a list of ratios representing each column or a number for amount of equal columns
+ * @param {string}      $prefix       ('g')   - a prefix to give your grid a name
+ * @param {number}      $gutterWidth  (2)     - spacing between your columns
+ * @param {bool}        $combinations (true)  - toggle combinations of columns
+ * @param {bool}        $quiet        (false) - toggle creation of real classes or just placeholders
+ */
+
+@mixin raster($columns, $prefix:g, $gutterWidth: 2, $combinations: true, $quiet: false) {
+    @if type-of($columns) != number and type-of($columns) != list {
+        @error '#{$columns} is no valid input for $columns of mixin raster.';
+    }
+    @if type-of($columns) == list {
+        @each $column in $columns {
+            @if type-of($column) != number and unitless($column) == true {
+                @error 'Item "#{$column}" of list $columns in mixin raster must be a number without a unit';
+            }
+        }
+    }
+    @if type-of($prefix) != string{
+        @error '#{$prefix} is no valid input for $columns of mixin raster.';
+    }
+    @if type-of($gutterWidth) != number and unitless($gutterWidth) == true or $gutterWidth < 0 {
+        @error '#{$gutterWidth} is no valid input for $columns of mixin raster.';
+    }
+    @if type-of($combinations) != bool {
+        @error '#{$combinations} is no valid input for $columns of mixin raster.';
+    }
+    @if type-of($quiet) != bool {
+        @error '#{$quiet} is no valid input for $columns of mixin raster.';
+    }
+    $columnLength: $columns;
+    @if type-of($columns) == list {
+        $columnLength: length($columns);
+    }
+
+    //if $columns contains only a number instead of a list of ratios, a ratios list is generated where all ratios are set to 1
+    $selector: '.';
+    @if $quiet {
+        $selector: '%';
+    }
+    $selector: $selector+$prefix;
+
+    #{'%'+$prefix}-float-left {
+        float: left;
+    }
+
+    #{'%'+$prefix}-margin-right {
+        margin-right: -100%;
+    }
+
+    #{'%'+$prefix}-clear {
+        clear: both;
+    }
+
+    #{'%'+$prefix}-margin-left-zero {
+        margin-left: 0;
+    }
+
+    #{'%'+$prefix}-last {
+        margin-right: 0;
+        float: right;
+    }
+    $columns: _rs-parseColumns($columns);
+    @if _rs-hasEqualColumns($columns) {
+        #{'%'+$prefix}-width {
+            width: _rs-getEqualColumnWidth($columns, $gutterWidth);
+        }
+    } @else {
+        @each $width in _rs-columnWidths($columns, $gutterWidth) {
+            #{'%'+$prefix}-width-#{$width*10000} {
+                width: $width * 1%;
+            }
+        }
+    }
+
+    @each $margin in _rs-columnMargins($columns, $gutterWidth) {
+        @if $margin != 0 {
+            #{'%'+$prefix}-margin-left-#{$margin*10000} {
+                margin-left: $margin * 1%;
+            }
+        } @else {
+            #{'%'+$prefix}-margin-left-#{$margin*10000} {
+                @extend #{'%'+$prefix}-margin-left-zero;
+            }
+        }
+    }
+
+    @include _rs-singleColumns($selector, $columns, $gutterWidth);
+    //if needed: create the combined selectors and include their styles
+    @if $combinations {
+        @include _rs-combinedColumns($selector, $columns, $gutterWidth);
+    }
+
+
+    //provide a more semantic selector for full width columns
+    #{$selector}-full {
+        @extend #{'%'+$prefix}-clear;
+        @extend #{'%'+$prefix}-margin-left-zero;
+        width: 100%;
+    }
+
+    //provide a selector for hidden columns
+    #{$selector}-hidden {
+        display: none;
+    }
+
+    //provide a selector for columns that are not the "first column" but that should start in a new row
+    #{$selector}-first {
+        @extend #{'%'+$prefix}-clear;
+    }
+}
+
+@if not $raster-row-set { //create the row only once
+    #{$raster-row} {
+        @if $old-ie {
+            *zoom: 1;
+        }
+        &:before,
+        &:after {
+            content: " ";
+            display: table;
+        }
+
+        &:after {
+            clear: both;
+        }
+    }
+    $raster-row-set: true;
+}

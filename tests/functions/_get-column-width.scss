@@ -1,0 +1,15 @@
+@include describe("The _rs-getColumnWidth function") {
+    @include it("should return the width of a column") {
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:1) ), to( equal( (48%) ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:2) ), to( equal( (48%) ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:1, $to:2) ), to( equal( 100% ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (2,0.75,0.25), $gutterWidth: 4, $from:2) ), to( equal( 23% ) ));
+    }
+    @include it("should return false if wrong parameters are entered") {
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:false) ), to( equal( false ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: true, $from:1) ), to( equal( false ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:2, $to: 1) ), to( equal( false ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: false, $gutterWidth: 4, $from:1) ), to( equal( false ) ));
+        @include should(expect( _rs-getColumnWidth($ratios: (1,1), $gutterWidth: 4, $from:1, $to: test) ), to( equal( false ) ));
+    }
+}

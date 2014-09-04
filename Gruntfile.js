@@ -44,7 +44,7 @@ module.exports = function (grunt) {
         concat: {
             dist: {
                 src: [
-                    'src/settings.scss',
+                    'src/_settings.scss',
                     'src/functions/_column-widths.scss',
                     'src/functions/_get-column-widths.scss',
                     'src/functions/_column-margins.scss',

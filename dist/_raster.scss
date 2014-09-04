@@ -1,3 +1,20 @@
+$raster-row-set: false;
+
+/*
+ * apply bugfixes to old internet explorers
+ * ---
+ * @type bool
+ */
+
+$old-ie: false !default;
+
+/*
+ * set the name of the class that is used as a grid row
+ * ---
+ * @type string
+ */
+
+$raster-row: '.grid-row' !default;
 /*
  * calculate the widths of each column related to the given ratios and return each value in a list
  * ---

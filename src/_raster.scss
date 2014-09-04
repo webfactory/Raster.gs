@@ -1,151 +1,20 @@
-$old-ie: false !default;
-$rs-grid-row: '.grid-row' !default;
-$rs-grid-row-set: false;
+@charset "UTF-8";
 
-//calculate the widths of each column related to the given ratios and return each value in a list
-@function grid-calculateColumnWidths($ratios, $gutterWidth){
-    $columns: length($ratios);
-    $columnWidths: ();
-    $totalGutterWidth: $gutterWidth * ($columns - 1);
-    @each $ratio in $ratios {
-        $width: (((100 - $totalGutterWidth) / $columns) * $ratio);
-        $columnWidths: append($columnWidths, $width);
-    }
-    @return $columnWidths;
-}
+//Author: Marc Mintel <marc@mintel.me>
+//Twitter: @marcmintel
+//Team: webfactory GmbH <info@webfactory.de>
+//Licensed under MIT Open Source
 
-//choose a column and get its width from the list created before
-@function grid-getWidth($ratios, $gutterWidth, $from, $to: 1){
-    $columns: length($ratios);
-    @if $to > 1 {
-        $columnWidth: 0;
-        @for $column from $from to ($to + 1) {
-            @if $column < $columns {
-                $columnWidth: $columnWidth + nth(grid-calculateColumnWidths($ratios, $gutterWidth), $column);
-            }
-        }
-        @if $to == $columns {
-            $columnWidth: $columnWidth + nth(grid-calculateColumnWidths($ratios, $gutterWidth), $columns);
-        }
-        $width: $columnWidth + ($gutterWidth * ($to - $from));
-        @return unquote($width + '%');
-    }
-    @else {
-        @return unquote(nth(grid-calculateColumnWidths($ratios, $gutterWidth), $from) + '%');
-    }
-}
+//**
+//* PLEASE REPORT ISSUES ON GITHUB https://github.com/webfactory/Raster.gs
+//**
 
-//calculate the margins of each column related to the given ratios and return each value in a list
-@function grid-calculateColumnMargins($ratios, $gutterWidth){
-    $columnWidths: grid-calculateColumnWidths($ratios, $gutterWidth);
-    $columns: length($ratios);
-    $marginList: ();
-    $margin: 0;
-    @for $column from 1 through $columns {
-        @for $m from 1 through ($column){
-            @if $m == 1 {
-                $margin: 0;
-            } @else {
-                $margin: $margin + nth($columnWidths, ($m - 1)) + ($gutterWidth);
-            }
-        }
-        $marginList: append($marginList, $margin);
-    }
-    @return $marginList;
-}
-
-//choose a column and get its margin from the list created before
-@function grid-getMargin($ratios, $gutterWidth, $n){
-    $result: nth(grid-calculateColumnMargins($ratios, $gutterWidth), ($n));
-    @if $result == 0 {
-        @return $result;
-    }
-    @if $result > 0 {
-        @return unquote($result + '%');
-    }
-}
-
-//generate the styles for each column
-@mixin grid-column($gutterWidth, $ratios, $column, $to:1) {
-    $from: $column;
-    //first column should always start a new row
-    @if $column == 1 {
-        clear: both;
-    }
-    //because of possible rounding errors we float the last column to the right
-    @if $column == length($ratios) or $to == length($ratios) and $column > 1 {
-        float: right;
-        margin-right: 0;
-    } @else {
-        @if $old-ie == false {
-            margin-left: grid-getMargin($ratios, $gutterWidth, $column);
-            margin-right: -100%;
-        } @else {
-            margin-left: $gutterWidth;
-        }
-        float: left;
-    }
-    width: grid-getWidth($ratios, $gutterWidth, $from, $to);
-}
-
-@mixin grid($columns, $prefix:g, $gutterWidth: 2, $combinations: true) {
-    $columnLength: length($columns);
-    //if $columns contains only a number instead of a list of ratios, a ratios list is generated where all ratios are set to 1
-    @if $columnLength == 1 {
-        $columnLength: $columns;
-        $ratios: ();
-        @for $n from 1 through $columns {
-            $ratios: append($ratios, 1);
-        }
-        $columns: $ratios;
-    }
-    //create the selectors for each column and include their styles
-    @for $column from 1 through $columnLength {
-        .#{$prefix}-#{$column} {
-            @include grid-column($gutterWidth, $columns, $column);
-        }
-    }
-    //if needed: create the combined selectors and include their styles
-    @if $combinations {
-        @for $from from 1 through ($columnLength - 1) { //remove 1 from the list because we don't want a combination for the last column
-            @for $to from ($from + 1) through $columnLength {
-                .#{$prefix}-#{$from}-#{$to} {
-                    @include grid-column($gutterWidth, $columns, $from, $to);
-                }
-            }
-        }
-    }
-
-    //provide a more semantic selector for full width columns
-    .#{$prefix}-full {
-        clear: left;
-        margin-left: 0;
-        width: 100%;
-    }
-
-    //provide a selector for hidden columns
-    .#{$prefix}-hidden {
-        display: none;
-    }
-
-    //provide a selector for columns that are not the "first column" but that should start in a new row
-    .#{$prefix}-first {
-        clear: both;
-    }
-}
-
-@if not $rs-grid-row-set { //create the row only once
-    #{$rs-grid-row} {
-        *zoom: 1;
-        &:before,
-        &:after {
-            content: " ";
-            display: table;
-        }
-
-        &:after {
-            clear: both;
-        }
-    }
-    $rs-grid-row-set: true;
-}
+@import 'settings';
+@import 'functions/column-widths';
+@import 'functions/get-column-width';
+@import 'functions/column-margins';
+@import 'functions/get-column-margin';
+@import 'functions/parse-columns';
+@import 'functions/has-equal-columns';
+@import 'mixins/column';
+@import 'mixins/raster';

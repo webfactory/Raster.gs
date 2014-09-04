@@ -1,0 +1,32 @@
+/*
+ * calculate the widths of each column related to the given ratios and return each value in a list
+ * ---
+ * @access private
+ * ---
+ * @param {list}   $ratios      - a list of ratios representing the columns
+ * @param {number} $gutterWidth - number for spacing between columns
+ * ---
+ * @returns {list}
+ * ---
+ * @example
+ *  _rs-columnWidths($ratios: (1,0.5,1,0.5), $gutterWidth: 2)
+ */
+
+@function _rs-columnWidths($ratios, $gutterWidth){
+    @if type-of($ratios) != list {
+        @warn '#{$ratios} is no valid input for $ratios of _rs-columnWidths.';
+        @return false;
+    }
+    @if type-of($gutterWidth) != number or $gutterWidth < 0 {
+        @warn '#{$gutterWidth} is no valid input for $gutterWidth of _rs-columnWidths.';
+        @return false;
+    }
+    $columns: length($ratios);
+    $columnWidths: ();
+    $totalGutterWidth: $gutterWidth * ($columns - 1);
+    @each $ratio in $ratios {
+        $width: (((100 - $totalGutterWidth) / $columns) * $ratio);
+        $columnWidths: append($columnWidths, $width);
+    }
+    @return $columnWidths;
+}

@@ -1,0 +1,8 @@
+@include describe("The _rs-hasEqualColumns function") {
+    @include it("should return true if there are only equal columns") {
+        @include should(expect( _rs-hasEqualColumns( (1,1) ) ), to( equal( true ) ));
+    }
+    @include it("should return false if there are not only equal columns") {
+        @include should(expect( _rs-hasEqualColumns( (1,2,1,1) ) ), to( equal( false ) ));
+    }
+}

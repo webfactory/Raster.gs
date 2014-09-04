@@ -1,16 +1,21 @@
 {
-    "name": "raster.gs",
-    "ignore": [
-        "*.md",
-        "*.json"
-    ],
-    "main": [
-        "dist/default.css"
-    ],
-    "keywords": [
-        "scss",
-        "sass",
-        "css",
-        "grid"
-    ]
+  "name": "raster.gs",
+  "repository": "https://github.com/webfactory/Raster.gs.git",
+  "version": "2.0.0",
+  "ignore": [
+    "*.md",
+    "*.json"
+  ],
+  "main": [
+    "dist/_raster.scss"
+  ],
+  "keywords": [
+    "scss",
+    "sass",
+    "css",
+    "grid"
+  ],
+  "devDependencies": {
+    "bootcamp": "~1.1.7"
+  }
 }

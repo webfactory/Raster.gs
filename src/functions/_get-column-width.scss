@@ -1,0 +1,56 @@
+/*
+ * choose a column and get its width from the list created before
+ * ---
+ * @access private
+ * ---
+ * @returns {measure}
+ */
+@function _rs-getColumnWidth($ratios, $gutterWidth, $from, $to: false){
+    @if type-of($ratios) != list {
+        @warn '#{$ratios} is no valid input for $ratios of _rs-getColumnWidth.';
+        @return false;
+    }
+    @if type-of($gutterWidth) != number or $gutterWidth < 0 {
+        @warn '#{$gutterWidth} is no valid input for $gutterWidth of _rs-getColumnWidth.';
+        @return false;
+    }
+    @if type-of($from) != number {
+        @warn '#{$from} is no valid input for $n of _rs-getColumnWidth.';
+        @return false;
+    }
+    @if $to and type-of($to) != number {
+        @warn '#{$from} is no valid input for $n of _rs-getColumnWidth.';
+        @return false;
+    }
+    @if type-of($to) == number and type-of($from) == number {
+        @if $from < 0 or $from > length($ratios) or $from > $to {
+            @warn '#{$from} is no valid input for $n of _rs-getColumnWidth.';
+            @return false;
+        }
+        @if $to < 0 or $to > length($ratios) or $to < $from {
+            @warn '#{$from} is no valid input for $n of _rs-getColumnWidth.';
+            @return false;
+        }
+    }
+    $columns: length($ratios);
+    @if $to {
+        $columnWidth: 0;
+        @for $column from $from to ($to + 1) {
+            @if $column < $columns {
+                $columnWidth: $columnWidth + nth(_rs-columnWidths($ratios, $gutterWidth), $column);
+            }
+        }
+        @if $to == $columns {
+            $columnWidth: $columnWidth + nth(_rs-columnWidths($ratios, $gutterWidth), $columns);
+        }
+        $width: $columnWidth + ($gutterWidth * ($to - $from));
+        @return $width * 1%;
+    }
+    @else {
+        @return nth(_rs-columnWidths($ratios, $gutterWidth), $from) * 1%;
+    }
+}
+
+@function _rs-getEqualColumnWidth($ratios, $gutterWidth) {
+    @return _rs-getColumnWidth($ratios, $gutterWidth, $from:1, $to:1);
+}

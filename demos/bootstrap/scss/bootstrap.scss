@@ -1,4 +1,4 @@
-@import 'raster';
+@import '../../../src/raster';
 
 @media (max-width: 768px){
     @include raster($columns: 12, $prefix: 'col-xs', $gutterWidth: 2, $combinations: true);

@@ -19,10 +19,10 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    style: 'compressed'
+                    style: 'expanded'
                 },
                 files: {
-                    'dist/default.min.css': 'src/default.scss'
+                    'demos/bootstrap/css/bootstrap.css': 'demos/bootstrap/scss/bootstrap.scss'
                 }
             }
         },

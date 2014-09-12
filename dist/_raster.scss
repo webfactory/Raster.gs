@@ -183,19 +183,11 @@ $raster-row: '.grid-row' !default;
             @if $columnMargin == 0 {
                 @extend #{'%'+$prefix}-margin-left-zero;
             } @else {
-                @each $margin in _rs-columnMargins($ratios, $gutterWidth) {
-                    @extend #{'%'+$prefix}-margin-left-#{$margin*10000};
-                }
+                $margin: $columnMargin / ($columnMargin * 0 + 1); //strip units
+                @extend #{'%'+$prefix}-margin-left-#{$margin*10000};
             }
         } @else {
             margin-left: $gutterWidth;
-        }
-    }
-    @if _rs-hasEqualColumns($ratios) {
-        @extend #{'%'+$prefix}-width;
-    } @else {
-        @each $width in _rs-columnWidths($columns, $gutterWidth) {
-            @extend #{'%'+$prefix}-width-#{$width*10000};
         }
     }
 }
@@ -203,9 +195,17 @@ $raster-row: '.grid-row' !default;
 @mixin _rs-singleColumns($selector, $ratios, $gutterWidth) {
     //create the selectors for each column and include their styles
     $columns: _rs-parseColumns($ratios);
+    $prefix: str-slice($selector, 2);
     @for $column from 1 through length($columns)  {
         #{$selector}-#{$column} {
             @include _rs-column($selector, $columns, $gutterWidth, $column);
+            @if _rs-hasEqualColumns($ratios) {
+                @extend #{'%'+$prefix}-width;
+            } @else {
+                @each $width in _rs-columnWidths($columns, $gutterWidth) {
+                    @extend #{'%'+$prefix}-width-#{$width*10000};
+                }
+            }
         }
     }
 }

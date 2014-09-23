@@ -1,12 +1,7 @@
-@include describe("The _rs-columnMargins function") {
-    @include it("should return a list of widths for the columns") {
-        @include should(expect( _rs-columnMargins($ratios: (1,1), $gutterWidth: 4) ), to( be( (0,52) ) ));
-    }
-    @include it("should return false if wrong parameters are entered") {
-        @include should(expect( _rs-columnMargins($ratios: test, $gutterWidth: 4) ), to( equal( false ) ));
-        @include should(expect( _rs-columnMargins($ratios: null, $gutterWidth: 4) ), to( equal( false ) ));
-        @include should(expect( _rs-columnMargins($ratios: true, $gutterWidth: 4) ), to( equal( false ) ));
-        @include should(expect( _rs-columnMargins($ratios: (1,1), $gutterWidth: null) ), to( equal( false ) ));
-        @include should(expect( _rs-columnMargins($ratios: (1,1), $gutterWidth: -1) ), to( equal( false ) ));
+@include describe("The _rs-column-margins function") {
+    @include it("should return a list of margins for the columns") {
+        @include should(expect( _rs-column-margins($columns: 2, $gutter: 4) ), to( be( (0,52) ) ));
+        @include should(expect( _rs-column-margins($columns: 4, $gutter: 4) ), to( be( (0,26,52,78) ) ));
+        @include should(expect( _rs-column-margins($columns: (50,25,25), $gutter: 4) ), to( be( (0,50,77) ) ));
     }
 }

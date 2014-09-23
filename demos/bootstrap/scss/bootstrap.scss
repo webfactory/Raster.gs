@@ -1,17 +1,3 @@
-@import '../../../src/raster';
+@import '../../../src/private/raster';
 
-@media (max-width: 768px){
-    @include raster($columns: 12, $prefix: 'col-xs', $gutterWidth: 2, $combinations: true);
-}
-
-@media (min-width: 769px) and (max-width:992px){
-    @include raster($columns: 12, $prefix: 'col-sm', $gutterWidth: 2, $combinations: true);
-}
-
-@media (min-width: 993px) and (max-width:1200px){
-    @include raster($columns: 12, $prefix: 'col-md', $gutterWidth: 2, $combinations: true);
-}
-
-@media (min-width: 1200px){
-    @include raster($columns: 12, $prefix: 'col-lg', $gutterWidth: 2, $combinations: true);
-}
+@include _raster(12);

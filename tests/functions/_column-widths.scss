@@ -1,9 +1,8 @@
-@include describe("The _rs-columnWidths function") {
+@include describe("The _rs-column-widths function") {
     @include it("should return a list of widths for the columns") {
-        @include should(expect( _rs-columnWidths($ratios: (1,1), $gutterWidth: 4) ), to( be( (48,48) ) ));
-    }
-    @include it("should return false if wrong parameters were entered") {
-        @include should(expect( _rs-columnWidths($ratios: (1,1), $gutterWidth: test) ), to( equal( false ) ));
-        @include should(expect( _rs-columnWidths($ratios: true, $gutterWidth: 4) ), to( equal( false ) ));
+        @include should(expect( _rs-column-widths($columns: 2, $gutter: 4) ), to( be( (48,48) ) ));
+        @include should(expect( _rs-column-widths($columns: 4, $gutter: 4) ), to( be( (22,22,22,22) ) ));
+        @include should(expect( _rs-column-widths($columns: (50,25,25), $gutter: 4) ), to( be( (46,23,23) ) ));
+        @include should(expect( _rs-column-widths($columns: (50,25,25), $gutter: 0) ), to( be( (50,25,25) ) ));
     }
 }

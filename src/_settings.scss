@@ -1,12 +1,4 @@
-$raster-row-set: false;
-
-/*
- * apply bugfixes to old internet explorers
- * ---
- * @type bool
- */
-
-$old-ie: false !default;
+$_rs-grid-row-created: false;
 
 /*
  * set the name of the class that is used as a grid row
@@ -14,4 +6,4 @@ $old-ie: false !default;
  * @type string
  */
 
-$raster-row: '.grid-row' !default;
+$rs-grid-row: '.raster' !default;

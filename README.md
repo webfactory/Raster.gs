@@ -178,7 +178,10 @@ We tested it in the following ones and didn't find a bug yet:
 * http://www.webfactory.de
 
 ## Changelog
-### 2.0.0
+### 2.1
+* $gutterWidth is now $gutter
+* gutters are now two paddings
+### 2.0
 * mixin `grid` is now `raster`
 * introduced `$quiet` mode
 * prefixed private functions with underscore

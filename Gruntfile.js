@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
-                    quiet: true
+                    //quiet: true
                 },
                 files: {
                     'tmp/results.css': 'tests/tests.scss'

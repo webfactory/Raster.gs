@@ -1,12 +1,7 @@
-@include describe("The _rs-parseColumns function") {
-    @include it("should return a list of ratios") {
-        @include should(expect( _rs-parseColumns($columns: (12)) ), to( be( (1,1,1,1,1,1,1,1,1,1,1,1) ) ));
-        @include should(expect( _rs-parseColumns($columns: 2) ), to( be( (1,1) ) ));
-    }
-    @include it("should return false if wrong parameters are entered") {
-        @include should(expect( _rs-parseColumns($columns: test) ), to( equal( false ) ));
-        @include should(expect( _rs-parseColumns($columns: false) ), to( equal( false ) ));
-        @include should(expect( _rs-parseColumns($columns: null) ), to( equal( false ) ));
-        @include should(expect( _rs-parseColumns($columns: true) ), to( equal( false ) ));
+@include describe("The _rs-parse-columns function") {
+    @include it("should transform a number into a list of equal ratios") {
+        @include should(expect( _rs-parse-columns(2) ), to( be( ( (50,50) ) ) ));
+        @include should(expect( _rs-parse-columns(4) ), to( be( ( (25,25,25,25) ) ) ));
+        @include should(expect( _rs-parse-columns( (50,50) ) ), to( be( ( (50,50) ) ) ));
     }
 }

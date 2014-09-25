@@ -40,7 +40,7 @@ Add this line to your requirements in composer.json
 ```
 
 ## Using the grid
-### The SCSS part
+### Create a new grid system
 Include the mixin `raster()` in your Sass to generate a new grid. Raster.gs uses [configuration objects] (http://hugogiraudel.com/2014/05/05/bringing-configuration-objects-to-sass/).
 ```SCSS
 $conf: (
@@ -53,12 +53,12 @@ $conf: (
 @include raster($conf);
 ```
 
-#### `$columns`
+##### `$columns`
 This defines the number of your columns which must be either a number or a list of percentages (remember: do not go higher than 100%). 
 <code>$columns: 4</code> means that you want a grid with 4 columns with equal widths. You could express the same with a list of ratios <code>$columns: (1,1,1,1)</code>.
 <code>$columns: (75,25)</code> means that you want a grid with 2 columns where first column makes three quarters and the second one makes one quarter.
 
-#### `$prefix`
+##### `$prefix`
 This is a prefix for the CSS classes that are created, it must be a string. The default is `'column'`.
 ```SCSS
 $conf: (
@@ -105,7 +105,7 @@ $gallery: (
 @include raster($gallery);
 ```
 
-#### `$gutter`
+##### `$gutter`
 This is the width of your gutters between your columns. It must be a number.
 ```SCSS
 $conf: (
@@ -116,7 +116,7 @@ $conf: (
 ```
 The code above creates a grid with four columns where the gutters are 10% width.
 
-#### `$combinations`
+##### `$combinations`
 This decides whether to create CSS classes with combinations of your columns or not. It must be a boolean (true or false). By default this is set to true.
 ```SCSS
 $conf: (
@@ -137,7 +137,7 @@ These classes represent the combinations of your columns. For example: test-1-2 
 
 If you have many columns this option could blow up your css file size. So turn it off, if you don't need them.
 
-#### `$helpers`
+##### `$helpers`
 Every grid that is generated brings the following helper classes
 * raster: this is a wrapper for your columns (it will only be generated once)
 * PREFIX-pad: apply a padding that fits your grid gutters to column 
@@ -145,7 +145,7 @@ Every grid that is generated brings the following helper classes
 * PREFIX-full: sets an element to full width
 * PREFIX-first: clears the floating of an element. Use this if you want a row to start at another column instead of column one
 
-#### Nesting
+##### Nesting
 As all grid classes are based on relative units (percentages) you can simply nest them.
 ```HTML
 <div class="raster">
@@ -166,11 +166,75 @@ You can also nest different grids
 </div>
 ```
 
+### Use standalone mixins
+Want to create a more semantic layout without generation of unneeded grid classes? I've prepared some mixins for you!
+
+##### `row`
+This creates a new row which contains columns.
+```SCSS
+.example {
+    @include row;
+}
+```
+
+##### `column($conf, $column, $span)`
+Create a new column.
+
+```SCSS
+$conf: (
+    columns: 4,
+    gutter: 10
+);
+aside {
+    @include column($conf, 1) //this is placed in the first column
+}
+
+main {
+    @include column($conf, 2, 4) //this goes from the first to the fourth column
+}
+```
+
+##### `pad($conf)`
+This adds a padding which fits the gutter of the grid system.
+
+```SCSS
+$conf: (
+    columns: 4,
+    gutter: 10
+);
+.example {
+    @include pad($conf)
+}
+```
+
+##### `full`
+Creates a column filling the full width of its parent.
+
+```SCSS
+.example {
+    @include full;
+}
+```
+
+##### `hidden`
+This hides a column.
+
+```SCSS
+.example {
+    @include hidden;
+}
+```
+
 ## Settings
 The following variables can be overwritten in your project:
 ```SCSS
 $rgs-grid-row: 'grid-row'; //set the name of a row
 ```
+
+## Use in your framework
+Raster.gs is splitted in two parts: public and private. The public parts can be used by anyone without any dependency, 
+These have _human-readable_ names and include things like parameter validation and so forth. If you want to use your own names
+and don't want or need parameter validation you can use the files in the private dir. I only recommend this for experienced users.
 
 ## Browsersupport
 Raster.gs works from Internet Explorer 8 and up.

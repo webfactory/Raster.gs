@@ -41,7 +41,6 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'src/_settings.scss',
-                    'src/private/extends/_columns.scss',
                     'src/private/extends/_helpers.scss',
                     'src/private/functions/_is-equal.scss',
                     'src/private/functions/_parse-columns.scss',

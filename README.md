@@ -22,7 +22,7 @@ Sass > 3.4.5
 
 ## Installation
 ### Download
-You can just [downloa] (https://github.com/webfactory/Raster.gs/archive/master.zip) the files, but I recommend you to use [bower] (http://bower.io) for that!
+You can just [download] (https://github.com/webfactory/Raster.gs/archive/master.zip) the files, but I recommend you to use [bower] (http://bower.io) for that!
 
 ### Package manager
 Raster.gs is registered in Packagist and Bower.

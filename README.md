@@ -3,6 +3,7 @@ Raster.gs [![Build Status](https://travis-ci.org/webfactory/Raster.gs.svg)](http
 
 Raster.gs is an SCSS based grid system with the following features:
 * you can use more than one grid and choose different grids for different devices
+* have multiple grids
 * nest grids as deep as you want
 * create grids with uniform-width columns or completely weird ratio-based ones
 * leave columns out, no need for `offset`-classes

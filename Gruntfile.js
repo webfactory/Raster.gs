@@ -41,6 +41,8 @@ module.exports = function (grunt) {
             dist: {
                 src: [
                     'src/_settings.scss',
+                    'src/private/extends/_columns.scss',
+                    'src/private/extends/_helpers.scss',
                     'src/private/functions/_is-equal.scss',
                     'src/private/functions/_parse-columns.scss',
                     'src/private/functions/_column-widths.scss',
@@ -49,8 +51,19 @@ module.exports = function (grunt) {
                     'src/private/functions/_column-margins.scss',
                     'src/private/functions/_get-margin.scss',
                     'src/private/functions/_parse-margin.scss',
-                    'src/private/_raster.scss',
-                    'src/public/_raster.scss'
+                    'src/private/mixins/_column.scss',
+                    'src/private/mixins/_full.scss',
+                    'src/private/mixins/_hidden.scss',
+                    'src/private/mixins/_pad.scss',
+                    'src/private/mixins/_row.scss',
+                    'src/private/mixins/grid.scss',
+                    'src/public/mixins/_column.scss',
+                    'src/public/mixins/_full.scss',
+                    'src/public/mixins/_hidden.scss',
+                    'src/public/mixins/_pad.scss',
+                    'src/public/mixins/_row.scss',
+                    'src/public/mixins/_grid.scss'
+                    
                 ],
                 dest: 'dist/_raster.scss'
             }
@@ -98,6 +111,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-stripcomments');
     grunt.loadNpmTasks('bootcamp');
-    grunt.registerTask('default', ['copy', 'sass:dist', 'csslint', 'comments']);
+    grunt.registerTask('default', ['copy', 'sass:dist', 'concat', 'csslint', 'comments']);
     grunt.registerTask('test', ['sass:test', 'bootcamp']);
 };

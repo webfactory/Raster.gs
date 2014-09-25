@@ -1,0 +1,541 @@
+//Author: Marc Mintel <marc@mintel.me>
+//Twitter: @marcmintel
+//Team: webfactory GmbH <info@webfactory.de>
+//Licensed under MIT Open Source
+
+/* status for the creation of a grid row
+ * ---
+ * @access private
+ * ---
+ * @type bool
+ */
+$_rgs-grid-row-created: false;
+
+/* collects placeholders for widths
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-width-placeholders: ();
+
+/* collects placeholders for margins
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-margin-placeholders: ();
+
+/* collects placeholders for paddings
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-pad-placeholders: ();
+
+/* default config
+ * ---
+ * @access private
+ * ---
+ * @type map
+ */
+$_rgs-defaults:(
+    columns: 12,
+    prefix: 'column',
+    gutter: 4,
+    combinations: true,
+    helpers: true
+);
+
+/* set the name of the class that is used as a grid row
+ * ---
+ * @access public
+ * ---
+ * @type string
+ */
+$rgs-grid-row: 'grid-row' !default;
+%_rgs-last-column {
+    float: right;
+}
+
+%_rgs-default-column {
+    margin-right: -100%;
+    float: left;
+}
+
+%_rgs-first-column {
+    @extend %_rgs-default-column;
+    margin-left: 0;
+    clear: left;
+}
+%_rgs-hidden {
+    display: none !important;
+}
+
+%_rgs-full {
+    clear: left;
+    margin-left: 0;
+    width: 100%;
+}
+
+%_rgs-grid-row {
+    *zoom: 1;
+    &:before,
+    &:after {
+        content: " ";
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+}
+/* checks if there are equal columns or ratio based ones
+ * ---
+ * @access private
+ * ---
+ * @param {list} $columns - a list of columns 
+ * ---
+ * @return {bool}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-is-equal($columns) {
+    @if type-of($columns) == number {
+        @return true;
+    } @else if type-of($columns) == list {
+        $equalColumns: true;
+        $oldColumn: false;
+        @each $column in $columns {
+            @if $oldColumn == false {
+                $oldColumn: $column;
+            } @else {
+                @if $column != $oldColumn {
+                    $equalColumns: false;
+                }
+            }
+            $oldColumn: $column;
+        }
+        @return $equalColumns;
+    }
+    @return false;
+}
+/* transforms column from number to list, leaves lists as is
+ * ---
+ * @access private
+ * ---
+ * @param {number|list} $columns - columns to parse 
+ * ---
+ * @return {list}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-parse-columns($columns) {
+    @if type-of($columns) == number {
+        $cols: ();
+        @for $i from 1 through $columns {
+            $column: 100/$columns;
+            $cols: append($cols, $column)
+        }
+        @return $cols;
+    }
+    @return $columns;
+}
+/* calculates the width for each column 
+ * ---
+ * @access private
+ * ---
+ * @param {list}   $columns - list containing widths for columns
+ * @param {number} $gutter  - size of gutter 
+ * ---
+ * @returns {list}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-column-widths($columns, $gutter) {
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+    $totalGutterWidth: $gutter * ($numberOfColumns - 1);
+    $totalWidth: 100 - $totalGutterWidth;
+    $widths: ();
+    @each $column in $columns {
+        @if $column != $columns {
+            $width: $totalWidth * ($column / 100);
+            $widths: append($widths, $width);
+        }
+    }
+    @return $widths;
+}
+/* get the width from a list 
+ * ---
+ * @access private
+ * ---
+ * @param {number} - $column  - a number over 0 for the first column
+ * @param {number} - $span    - a number over $column for the length of columns
+ * @param {list}   - $columns - a list containing widths for columns
+ * @param {number} - $gutter  - a number for the gutter between columns
+ * ---
+ * @returns {number}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-get-width($column, $span, $columns, $gutter) {
+    $columns: _rgs-column-widths($columns, $gutter);
+    $numberOfColumns: length($columns);
+    $width: 0;
+    @if $span == null {
+        $span: $column;
+    }
+    @for $n from $column through $span {
+        $col: nth($columns, $n);
+        $width: $width + $col;
+    }
+    $width: $width + ($gutter * ($span - $column));
+    @return $width;
+}
+/* get the width from a list and parse it to percentages 
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {measure}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-parse-width($column, $span, $columns, $gutter) {
+    $width: _rgs-get-width($column, $span, $columns, $gutter);
+    $parsedWidths: 0;
+    @if $width != 0 {
+        @if $width == 100.0 {
+            @return 100%;
+        } @else {
+            $parsedWidths: $width * 1%;
+        }
+    }
+    @return $parsedWidths;
+}
+/* calculates the margin for each column 
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {list}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-column-margins($columns, $gutter) {
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+    $margin: 0;
+    $margins: ($margin); //first margin is always 0
+    //loop through columns except last one, there is no column
+    //after the last one so we dont need a margin for that
+    @for $n from 1 through $numberOfColumns - 1 {
+        $span: _rgs-get-width(1, $n, $columns, $gutter);
+        $margin: $span + $gutter;
+        $margins: append($margins, $margin);
+    }
+    @return $margins;
+}
+/* get the margin for a column from a list of margins
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {number}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-get-margin($column, $columns, $gutter) {
+    $margins: _rgs-column-margins($columns, $gutter);
+    $numberOfColumns: length($columns);
+    $margin: nth($margins, $column);
+    @return $margin;
+}
+/* get a margin from a list and parse it to percentages
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {measure}
+ * ---
+ * @since 3.0.0
+ */
+
+@function _rgs-parse-margin($column, $columns, $gutter) {
+    $margin: _rgs-get-margin($column, $columns, $gutter);
+    $parsedMargin: 0;
+    @if $margin != 0 {
+        @if $margin == 100.0 {
+            @return 100%;
+        } @else {
+            $parsedMargin: $margin * 1%;
+        }
+    }
+    @return $parsedMargin;
+}
+/* creates a new grid column
+ * ---
+ * @author Marc Mintel <marc@mintel.me>
+ * ---
+ * @access private
+ * ---
+ * @param {map}    $conf   - configuration object for columns, prefix, gutter, combinations, helpers
+ * @param {number} $column - column to fill
+ * @param {number} $span   - span of columns
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin _rgs-column($conf, $column, $span: null) {
+    $columns: map-get($conf, columns);
+    $prefix: map-get($conf, prefix);
+    $gutter: map-get($conf, gutter);
+    $helpers: map-get($conf, helpers);
+    $combinations: map-get($conf, combinations);
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+
+    $lastIndicator: $column == $numberOfColumns;
+    @if $span != null {
+        $lastIndicator: $span == $numberOfColumns;
+    }
+    @if $column == 1 {
+        @extend %_rgs-first-column;
+    } @else if $lastIndicator {
+        @extend %_rgs-last-column;
+    } @else {
+        @extend %_rgs-default-column;
+    }
+    $marginPlaceholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
+    $widthPlaceholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
+    @if $column != 1 {
+        @if index($_rgs-margin-placeholders, $marginPlaceholder) == null {
+            @at-root {
+                #{'%'+$marginPlaceholder} {
+                    margin-left: _rgs-parse-margin($column, $columns, $gutter);
+                }
+            }
+            $_rgs-margin-placeholders: append($_rgs-margin-placeholders, $marginPlaceholder) !global;
+        }
+    }
+    @if index($_rgs-width-placeholders, $widthPlaceholder) == null {
+        @at-root {
+            #{'%'+$widthPlaceholder} {
+                width: _rgs-parse-width($column, $span, $columns, $gutter);
+            }
+        }
+        $_rgs-width-placeholders: append($_rgs-width-placeholders, $widthPlaceholder) !global;
+    }
+    
+    @if $column != 1 {
+        @extend #{'%'+$marginPlaceholder};
+    }
+    @extend #{'%'+$widthPlaceholder};
+}
+/* creates a fullsize column
+ * ---
+ * @access private
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin _rgs-full {
+    @extend %_rgs-full;
+}
+/* hides a column
+ * ---
+ * @access private
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin _rgs-hidden {
+    @extend %_rgs-hidden;
+}
+/* creates a new padding for a column
+ * ---
+ * @access private
+ * ---
+ * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin _rgs-pad($conf) {
+    $gutter: map-get($conf, gutter);
+    $prefix: map-get($conf, prefix);
+    $padPlaceholder: #{$prefix}-placeholder-margin-#{$gutter};
+    @if index($_rgs-pad-placeholders, $padPlaceholder) == null {
+        @at-root {
+            #{'%'+$padPlaceholder} {
+                $pad: $gutter * 1% * 0.5;
+                position: relative;
+                left: -$pad;
+                padding-left: $pad;
+                padding-right: $pad;
+            }
+        }
+        $_rgs-pad-placeholders: append($_rgs-pad-placeholders, $padPlaceholder) !global;
+    }
+    @extend #{'%'+$padPlaceholder};
+}
+/* creates a new row
+ * ---
+ * @access private
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin _rgs-row {
+    @extend %_rgs-grid-row;
+}
+/* creates a new grid column
+ * ---
+ * @author Marc Mintel <marc@mintel.me>
+ * ---
+ * @access public
+ * ---
+ * @param {map}    $conf   - configuration object for columns, prefix, gutter, combinations, helpers
+ * @param {number} $column - column to fill
+ * @param {number} $span   - span of columns
+ * ---
+ * @since 3.0.0
+ * ---
+ * @throws '$column for mixin `column` must be a number.'
+ * @throws '$span for mixin `column` must be a number.'
+ */
+
+@mixin column($conf, $column, $span:null) {
+    @if type-of($column) != number {
+        @error '$column for mixin `column` must be a number.';
+    }
+    @if type-of($span) != number and $span != null {
+        @error '$span for mixin `column` must be a number.';
+    }
+    $conf: map-merge($_rgs-defaults, $conf);
+    @include _rgs-column($conf, $column, $span);
+}
+/* creates a fullsize column
+ * ---
+ * @access public
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin full {
+    @include _rgs-full;
+}
+/* hides a column
+ * ---
+ * @access public
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin hidden {
+    @extend %_rgs-hidden;
+}
+/* creates a new padding for a column
+ * ---
+ * @access public
+ * ---
+ * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin pad($conf) {
+    $gutter: map-get($conf, gutter);
+    $prefix: map-get($conf, prefix);
+    $padPlaceholder: #{$prefix}-placeholder-margin-#{$gutter};
+    @if index($_rgs-pad-placeholders, $padPlaceholder) == null {
+        @at-root {
+            #{'%'+$padPlaceholder} {
+                $pad: $gutter * 1% * 0.5;
+                position: relative;
+                left: -$pad;
+                padding-left: $pad;
+                padding-right: $pad;
+            }
+        }
+        $_rgs-pad-placeholders: append($_rgs-pad-placeholders, $padPlaceholder) !global;
+    }
+    @extend #{'%'+$padPlaceholder};
+}
+/* creates a new row
+ * ---
+ * @access public
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin row {
+    @include _rgs-row;
+}
+/* creates a new grid system
+ * ---
+ * @author Marc Mintel <marc@mintel.me>
+ * ---
+ * @access public
+ * ---
+ * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ * ---
+ * @throws '$columns for mixin `raster` must be a number or a list.'
+ * @throws '$columns for mixin `raster` can not be higher than 100 in total.'
+ * @throws '$prefix for mixin `raster` must be a string.'
+ * @throws '$gutter for mixin `raster` must be a number.'
+ * @throws '$combinations for mixin `raster` must be a boolean.'
+ * @throws '$helpers for mixin `raster` must be a boolean.'
+ * ---
+ * @since 3.0.0
+ */
+
+@mixin raster($conf:()) {
+    $conf: map-merge($_rgs-defaults, $conf);
+    $columns: map-get($conf, columns);
+    $prefix: map-get($conf, prefix);
+    $gutter: map-get($conf, gutter);
+    $helpers: map-get($conf, helpers);
+    $combinations: map-get($conf, combinations);
+
+    @if type-of($columns) != number and type-of($columns) != list {
+        @error '$columns for mixin `raster` must be a number or a list.';
+    }
+    @if type-of($columns) == list {
+        $totalColumns: 0;
+        @each $column in $columns {
+            $totalColumns: $totalColumns + $column;
+        }
+        @if $totalColumns > 100 {
+            @error '$columns for mixin `raster` can not be higher than 100 in total.';
+        }
+    }
+    @if type-of($prefix) != string {
+        @error '$prefix for mixin `raster` must be a string.';
+    }
+    @if type-of($gutter) != number {
+        @error '$gutter for mixin `raster` must be a number.';
+    }
+    @if type-of($combinations) != bool {
+        @error '$combinations for mixin `raster` must be a boolean.';
+    }
+    @if type-of($helpers) != bool {
+        @error '$helpers for mixin `raster` must be a boolean.';
+    }
+
+    @include _rgs-grid($conf);
+}

@@ -1,4 +1,6 @@
 @import '../settings';
+@import 'extends/columns';
+@import 'extends/helpers';
 @import 'functions/is-equal';
 @import 'functions/parse-columns';
 @import 'functions/column-widths';

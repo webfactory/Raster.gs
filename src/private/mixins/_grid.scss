@@ -51,7 +51,7 @@
 
     @if not $_rgs-grid-row-created {
         .#{$rgs-grid-row} {
-            @include _rgs-grid-row;
+            @include _rgs-row;
         }
     }
 }

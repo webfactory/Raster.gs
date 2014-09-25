@@ -1,6 +1,4 @@
-@import '../../../src/public/raster';
-
-//@include raster($columns:4, $prefix: 'layout', $gutter: 4, $quiet: false);
+@import '../../../dist/raster';
 
 $semantic: (
     columns: 4,

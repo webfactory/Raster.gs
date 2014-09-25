@@ -1,0 +1,133 @@
+.column-12, .column-2-12, .column-3-12, .column-4-12, .column-5-12, .column-6-12, .column-7-12, .column-8-12, .column-9-12, .column-10-12, .column-11-12 {
+  float: right;
+}
+
+.column-1, .column-1-2, .column-1-3, .column-1-4, .column-1-5, .column-1-6, .column-1-7, .column-1-8, .column-1-9, .column-1-10, .column-1-11, .column-1-12, .column-first, .column-2, .column-3, .column-4, .column-5, .column-6, .column-7, .column-8, .column-9, .column-10, .column-11, .column-2-3, .column-2-4, .column-2-5, .column-2-6, .column-2-7, .column-2-8, .column-2-9, .column-2-10, .column-2-11, .column-3-4, .column-3-5, .column-3-6, .column-3-7, .column-3-8, .column-3-9, .column-3-10, .column-3-11, .column-4-5, .column-4-6, .column-4-7, .column-4-8, .column-4-9, .column-4-10, .column-4-11, .column-5-6, .column-5-7, .column-5-8, .column-5-9, .column-5-10, .column-5-11, .column-6-7, .column-6-8, .column-6-9, .column-6-10, .column-6-11, .column-7-8, .column-7-9, .column-7-10, .column-7-11, .column-8-9, .column-8-10, .column-8-11, .column-9-10, .column-9-11, .column-10-11 {
+  margin-right: -100%;
+  float: left;
+}
+
+.column-1, .column-1-2, .column-1-3, .column-1-4, .column-1-5, .column-1-6, .column-1-7, .column-1-8, .column-1-9, .column-1-10, .column-1-11, .column-1-12, .column-first {
+  margin-left: 0;
+  clear: left;
+}
+
+.column-hidden {
+  display: none !important;
+}
+
+.column-full {
+  clear: left;
+  margin-left: 0;
+  width: 100%;
+}
+
+.column-1, .column-2, .column-3, .column-4, .column-5, .column-6, .column-7, .column-8, .column-9, .column-10, .column-11, .column-12 {
+  width: 4.66667%;
+}
+
+.column-2, .column-2-3, .column-2-4, .column-2-5, .column-2-6, .column-2-7, .column-2-8, .column-2-9, .column-2-10, .column-2-11, .column-2-12 {
+  margin-left: 8.66667%;
+}
+
+.column-3, .column-3-4, .column-3-5, .column-3-6, .column-3-7, .column-3-8, .column-3-9, .column-3-10, .column-3-11, .column-3-12 {
+  margin-left: 17.33333%;
+}
+
+.column-4, .column-4-5, .column-4-6, .column-4-7, .column-4-8, .column-4-9, .column-4-10, .column-4-11, .column-4-12 {
+  margin-left: 26%;
+}
+
+.column-5, .column-5-6, .column-5-7, .column-5-8, .column-5-9, .column-5-10, .column-5-11, .column-5-12 {
+  margin-left: 34.66667%;
+}
+
+.column-6, .column-6-7, .column-6-8, .column-6-9, .column-6-10, .column-6-11, .column-6-12 {
+  margin-left: 43.33333%;
+}
+
+.column-7, .column-7-8, .column-7-9, .column-7-10, .column-7-11, .column-7-12 {
+  margin-left: 52%;
+}
+
+.column-8, .column-8-9, .column-8-10, .column-8-11, .column-8-12 {
+  margin-left: 60.66667%;
+}
+
+.column-9, .column-9-10, .column-9-11, .column-9-12 {
+  margin-left: 69.33333%;
+}
+
+.column-10, .column-10-11, .column-10-12 {
+  margin-left: 78%;
+}
+
+.column-11, .column-11-12 {
+  margin-left: 86.66667%;
+}
+
+.column-12 {
+  margin-left: 95.33333%;
+}
+
+.column-1-2, .column-2-3, .column-3-4, .column-4-5, .column-5-6, .column-6-7, .column-7-8, .column-8-9, .column-9-10, .column-10-11, .column-11-12 {
+  width: 13.33333%;
+}
+
+.column-1-3, .column-2-4, .column-3-5, .column-4-6, .column-5-7, .column-6-8, .column-7-9, .column-8-10, .column-9-11, .column-10-12 {
+  width: 22%;
+}
+
+.column-1-4, .column-2-5, .column-3-6, .column-4-7, .column-5-8, .column-6-9, .column-7-10, .column-8-11, .column-9-12 {
+  width: 30.66667%;
+}
+
+.column-1-5, .column-2-6, .column-3-7, .column-4-8, .column-5-9, .column-6-10, .column-7-11, .column-8-12 {
+  width: 39.33333%;
+}
+
+.column-1-6, .column-2-7, .column-3-8, .column-4-9, .column-5-10, .column-6-11, .column-7-12 {
+  width: 48%;
+}
+
+.column-1-7, .column-2-8, .column-3-9, .column-4-10, .column-5-11, .column-6-12 {
+  width: 56.66667%;
+}
+
+.column-1-8, .column-2-9, .column-3-10, .column-4-11, .column-5-12 {
+  width: 65.33333%;
+}
+
+.column-1-9, .column-2-10, .column-3-11, .column-4-12 {
+  width: 74%;
+}
+
+.column-1-10, .column-2-11, .column-3-12 {
+  width: 82.66667%;
+}
+
+.column-1-11, .column-2-12 {
+  width: 91.33333%;
+}
+
+.column-1-12 {
+  width: 100%;
+}
+
+.column-pad {
+  position: relative;
+  left: -2%;
+  padding-left: 2%;
+  padding-right: 2%;
+}
+
+.raster {
+  *zoom: 1;
+}
+.raster:before, .raster:after {
+  content: " ";
+  display: table;
+}
+.raster:after {
+  clear: both;
+}

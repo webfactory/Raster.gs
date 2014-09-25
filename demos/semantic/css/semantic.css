@@ -1,0 +1,24 @@
+aside {
+  float: right;
+}
+
+.main {
+  margin-right: -100%;
+  float: left;
+}
+
+.main {
+  margin-left: 0;
+  clear: left;
+}
+
+.main {
+  width: 74%;
+}
+
+aside {
+  margin-left: 78%;
+}
+aside {
+  width: 22%;
+}

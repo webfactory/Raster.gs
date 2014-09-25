@@ -20,23 +20,6 @@
     $columns: _rgs-parse-columns($columns);
     $numberOfColumns: length($columns);
 
-//    @at-root {
-//        %_rgs-#{$prefix}-last-column {
-//            float: right;
-//        }
-//    
-//        %_rgs-#{$prefix}-default-column {
-//            margin-right: -100%;
-//            float: left;
-//        }
-//    
-//        %_rgs-#{$prefix}-first-column {
-//            @extend %_rgs-default-column;
-//            margin-left: 0;
-//            clear: left;
-//        }
-//    }
-
     $lastIndicator: $column == $numberOfColumns;
     @if $span != null {
         $lastIndicator: $span == $numberOfColumns;

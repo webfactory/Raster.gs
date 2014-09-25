@@ -60,20 +60,6 @@ $_rgs-defaults:(
  * @type string
  */
 $rgs-grid-row: 'grid-row' !default;
-%_rgs-last-column {
-    float: right;
-}
-
-%_rgs-default-column {
-    margin-right: -100%;
-    float: left;
-}
-
-%_rgs-first-column {
-    @extend %_rgs-default-column;
-    margin-left: 0;
-    clear: left;
-}
 %_rgs-hidden {
     display: none !important;
 }
@@ -163,8 +149,8 @@ $rgs-grid-row: 'grid-row' !default;
 
 @function _rgs-column-widths($columns, $gutter) {
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
-    $totalGutterWidth: $gutter * ($numberOfColumns - 1);
+    $number-of-columns: length($columns);
+    $totalGutterWidth: $gutter * ($number-of-columns - 1);
     $totalWidth: 100 - $totalGutterWidth;
     $widths: ();
     @each $column in $columns {
@@ -191,7 +177,7 @@ $rgs-grid-row: 'grid-row' !default;
 
 @function _rgs-get-width($column, $span, $columns, $gutter) {
     $columns: _rgs-column-widths($columns, $gutter);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
     $width: 0;
     @if $span == null {
         $span: $column;
@@ -239,12 +225,12 @@ $rgs-grid-row: 'grid-row' !default;
 
 @function _rgs-column-margins($columns, $gutter) {
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
     $margin: 0;
     $margins: ($margin); //first margin is always 0
     //loop through columns except last one, there is no column
     //after the last one so we dont need a margin for that
-    @for $n from 1 through $numberOfColumns - 1 {
+    @for $n from 1 through $number-of-columns - 1 {
         $span: _rgs-get-width(1, $n, $columns, $gutter);
         $margin: $span + $gutter;
         $margins: append($margins, $margin);
@@ -264,7 +250,7 @@ $rgs-grid-row: 'grid-row' !default;
 
 @function _rgs-get-margin($column, $columns, $gutter) {
     $margins: _rgs-column-margins($columns, $gutter);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
     $margin: nth($margins, $column);
     @return $margin;
 }
@@ -311,28 +297,11 @@ $rgs-grid-row: 'grid-row' !default;
     $helpers: map-get($conf, helpers);
     $combinations: map-get($conf, combinations);
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
 
-//    @at-root {
-//        %_rgs-#{$prefix}-last-column {
-//            float: right;
-//        }
-//    
-//        %_rgs-#{$prefix}-default-column {
-//            margin-right: -100%;
-//            float: left;
-//        }
-//    
-//        %_rgs-#{$prefix}-first-column {
-//            @extend %_rgs-default-column;
-//            margin-left: 0;
-//            clear: left;
-//        }
-//    }
-
-    $lastIndicator: $column == $numberOfColumns;
+    $lastIndicator: $column == $number-of-columns;
     @if $span != null {
-        $lastIndicator: $span == $numberOfColumns;
+        $lastIndicator: $span == $number-of-columns;
     }
 
     $clearLeftPlaceholder: #{$prefix}-clear-left;
@@ -488,16 +457,16 @@ $rgs-grid-row: 'grid-row' !default;
     $helpers: map-get($conf, helpers);
     $combinations: map-get($conf, combinations);
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
-    @for $column from 1 through $numberOfColumns {
+    $number-of-columns: length($columns);
+    @for $column from 1 through $number-of-columns {
         .#{$prefix}-#{$column} {
             @include _rgs-column($conf, $column);
         }
     }
 
     @if $combinations {
-        @for $column from 1 through ($numberOfColumns - 1) { //remove 1 from the list because we don't want a combination for the last column
-            @for $span from ($column + 1) through $numberOfColumns {
+        @for $column from 1 through ($number-of-columns - 1) { //remove 1 from the list because we don't want a combination for the last column
+            @for $span from ($column + 1) through $number-of-columns {
                 .#{$prefix}-#{$column}-#{$span} {
                     @include _rgs-column($conf, $column, $span);
                 }

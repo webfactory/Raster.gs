@@ -11,13 +11,13 @@
 
 @function _rgs-parse-width($column, $span, $columns, $gutter) {
     $width: _rgs-get-width($column, $span, $columns, $gutter);
-    $parsedWidths: 0;
+    $parsed-widths: 0;
     @if $width != 0 {
         @if $width == 100.0 {
             @return 100%;
         } @else {
-            $parsedWidths: $width * 1%;
+            $parsed-widths: $width * 1%;
         }
     }
-    @return $parsedWidths;
+    @return $parsed-widths;
 }

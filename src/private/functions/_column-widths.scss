@@ -12,9 +12,9 @@
 
 @function _rgs-column-widths($columns, $gutter) {
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
-    $totalGutterWidth: $gutter * ($numberOfColumns - 1);
-    $totalWidth: 100 - $totalGutterWidth;
+    $number-of-columns: length($columns);
+    $total-gutter-width: $gutter * ($number-of-columns - 1);
+    $totalWidth: 100 - $total-gutter-width;
     $widths: ();
     @each $column in $columns {
         @if $column != $columns {

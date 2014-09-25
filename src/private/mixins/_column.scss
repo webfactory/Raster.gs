@@ -18,88 +18,88 @@
     $helpers: map-get($conf, helpers);
     $combinations: map-get($conf, combinations);
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
 
-    $lastIndicator: $column == $numberOfColumns;
+    $last-indicator: $column == $number-of-columns;
     @if $span != null {
-        $lastIndicator: $span == $numberOfColumns;
+        $last-indicator: $span == $number-of-columns;
     }
 
-    $clearLeftPlaceholder: #{$prefix}-clear-left;
-    @if index($_rgs-clear-left-placeholders, $clearLeftPlaceholder) == null {
+    $clear-left-placeholder: #{$prefix}-clear-left;
+    @if index($_rgs-clear-left-placeholders, $clear-left-placeholder) == null {
         @at-root {
-            #{'%'+$clearLeftPlaceholder} {
+            #{'%'+$clear-left-placeholder} {
                 clear: left;
             }
         }
-        $_rgs-clear-left-placeholders: append($_rgs-clear-left-placeholders, $clearLeftPlaceholder) !global;
+        $_rgs-clear-left-placeholders: append($_rgs-clear-left-placeholders, $clear-left-placeholder) !global;
     }
 
 
-    $floatRightPlaceholder: #{$prefix}-float-right;
-    @if $lastIndicator {
-        @if index($_rgs-float-right-placeholders, $floatRightPlaceholder) == null {
+    $float-right-placeholder: #{$prefix}-float-right;
+    @if $last-indicator {
+        @if index($_rgs-float-right-placeholders, $float-right-placeholder) == null {
             @at-root {
-                #{'%'+$floatRightPlaceholder} {
+                #{'%'+$float-right-placeholder} {
                     float: right;
                 }
             }
-            $_rgs-float-right-placeholders: append($_rgs-float-right-placeholders, $floatRightPlaceholder) !global;
+            $_rgs-float-right-placeholders: append($_rgs-float-right-placeholders, $float-right-placeholder) !global;
         }
     }
 
-    $floatLeftPlaceholder: #{$prefix}-float-left;
-    @if index($_rgs-float-left-placeholders, $floatLeftPlaceholder) == null {
+    $float-left-placeholder: #{$prefix}-float-left;
+    @if index($_rgs-float-left-placeholders, $float-left-placeholder) == null {
         @at-root {
-            #{'%'+$floatLeftPlaceholder} {
+            #{'%'+$float-left-placeholder} {
                 float: left;
             }
         }
-        $_rgs-float-left-placeholders: append($_rgs-float-left-placeholders, $floatLeftPlaceholder) !global;
+        $_rgs-float-left-placeholders: append($_rgs-float-left-placeholders, $float-left-placeholder) !global;
     }
 
-    $marginRightPlaceholder: #{$prefix}-margin-right;
-    @if index($_rgs-margin-right-placeholders, $marginRightPlaceholder) == null {
+    $margin-right-placeholder: #{$prefix}-margin-right;
+    @if index($_rgs-margin-right-placeholders, $margin-right-placeholder) == null {
         @at-root {
-            #{'%'+$marginRightPlaceholder} {
+            #{'%'+$margin-right-placeholder} {
                 margin-right: -100%;
             }
         }
-        $_rgs-margin-right-placeholders: append($_rgs-margin-right-placeholders, $marginRightPlaceholder) !global;
+        $_rgs-margin-right-placeholders: append($_rgs-margin-right-placeholders, $margin-right-placeholder) !global;
     }
     
-    $marginLeftPlaceholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
+    $margin-left-placeholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
     @if $column != 1 {
-        @if index($_rgs-margin-left-placeholders, $marginLeftPlaceholder) == null {
+        @if index($_rgs-margin-left-placeholders, $margin-left-placeholder) == null {
             @at-root {
-                #{'%'+$marginLeftPlaceholder} {
+                #{'%'+$margin-left-placeholder} {
                     margin-left: _rgs-parse-margin($column, $columns, $gutter);
                 }
             }
-            $_rgs-margin-left-placeholders: append($_rgs-margin-left-placeholders, $marginLeftPlaceholder) !global;
+            $_rgs-margin-left-placeholders: append($_rgs-margin-left-placeholders, $margin-left-placeholder) !global;
         }
     }
-    $widthPlaceholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
-    @if index($_rgs-width-placeholders, $widthPlaceholder) == null {
+    $width-placeholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
+    @if index($_rgs-width-placeholders, $width-placeholder) == null {
         @at-root {
-            #{'%'+$widthPlaceholder} {
+            #{'%'+$width-placeholder} {
                 width: _rgs-parse-width($column, $span, $columns, $gutter);
             }
         }
-        $_rgs-width-placeholders: append($_rgs-width-placeholders, $widthPlaceholder) !global;
+        $_rgs-width-placeholders: append($_rgs-width-placeholders, $width-placeholder) !global;
     }
     
     @if $column == 1 {
-        @extend #{'%'+$floatLeftPlaceholder};
-        @extend #{'%'+$clearLeftPlaceholder};
-    } @else if $lastIndicator {
-        @extend #{'%'+$floatRightPlaceholder};                
+        @extend #{'%'+$float-left-placeholder};
+        @extend #{'%'+$clear-left-placeholder};
+    } @else if $last-indicator {
+        @extend #{'%'+$float-right-placeholder};                
     } @else {
-        @extend #{'%'+$marginLeftPlaceholder} !optional;
-        @extend #{'%'+$floatLeftPlaceholder};
+        @extend #{'%'+$margin-left-placeholder} !optional;
+        @extend #{'%'+$float-left-placeholder};
     } 
-    @if not $lastIndicator {
-        @extend #{'%'+$marginRightPlaceholder};
+    @if not $last-indicator {
+        @extend #{'%'+$margin-right-placeholder};
     }
-    @extend #{'%'+$widthPlaceholder};
+    @extend #{'%'+$width-placeholder};
 }

@@ -28,11 +28,11 @@
         @error '$columns for mixin `raster` must be a number or a list.';
     }
     @if type-of($columns) == list {
-        $totalColumns: 0;
+        $total-columns: 0;
         @each $column in $columns {
-            $totalColumns: $totalColumns + $column;
+            $total-columns: $total-columns + $column;
         }
-        @if $totalColumns > 100 {
+        @if $total-columns > 100 {
             @error '$columns for mixin `raster` can not be higher than 100 in total.';
         }
     }

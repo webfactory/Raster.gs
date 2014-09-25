@@ -14,16 +14,16 @@
     $helpers: map-get($conf, helpers);
     $combinations: map-get($conf, combinations);
     $columns: _rgs-parse-columns($columns);
-    $numberOfColumns: length($columns);
-    @for $column from 1 through $numberOfColumns {
+    $number-of-columns: length($columns);
+    @for $column from 1 through $number-of-columns {
         .#{$prefix}-#{$column} {
             @include _rgs-column($conf, $column);
         }
     }
 
     @if $combinations {
-        @for $column from 1 through ($numberOfColumns - 1) { //remove 1 from the list because we don't want a combination for the last column
-            @for $span from ($column + 1) through $numberOfColumns {
+        @for $column from 1 through ($number-of-columns - 1) { //remove 1 from the list because we don't want a combination for the last column
+            @for $span from ($column + 1) through $number-of-columns {
                 .#{$prefix}-#{$column}-#{$span} {
                     @include _rgs-column($conf, $column, $span);
                 }

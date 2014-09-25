@@ -11,7 +11,7 @@
 
 @function _rgs-get-margin($column, $columns, $gutter) {
     $margins: _rgs-column-margins($columns, $gutter);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
     $margin: nth($margins, $column);
     @return $margin;
 }

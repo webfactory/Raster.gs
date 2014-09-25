@@ -13,19 +13,19 @@
     @if type-of($columns) == number {
         @return true;
     } @else if type-of($columns) == list {
-        $equalColumns: true;
-        $oldColumn: false;
+        $equal-columns: true;
+        $old-column: false;
         @each $column in $columns {
-            @if $oldColumn == false {
-                $oldColumn: $column;
+            @if $old-column == false {
+                $old-column: $column;
             } @else {
-                @if $column != $oldColumn {
-                    $equalColumns: false;
+                @if $column != $old-column {
+                    $equal-columns: false;
                 }
             }
-            $oldColumn: $column;
+            $old-column: $column;
         }
-        @return $equalColumns;
+        @return $equal-columns;
     }
     @return false;
 }

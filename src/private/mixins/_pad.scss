@@ -10,10 +10,10 @@
 @mixin _rgs-pad($conf) {
     $gutter: map-get($conf, gutter);
     $prefix: map-get($conf, prefix);
-    $padPlaceholder: #{$prefix}-placeholder-margin-#{$gutter};
-    @if index($_rgs-pad-placeholders, $padPlaceholder) == null {
+    $pad-placeholder: #{$prefix}-placeholder-margin-#{$gutter};
+    @if index($_rgs-pad-placeholders, $pad-placeholder) == null {
         @at-root {
-            #{'%'+$padPlaceholder} {
+            #{'%'+$pad-placeholder} {
                 $pad: $gutter * 1% * 0.5;
                 position: relative;
                 left: -$pad;
@@ -21,7 +21,7 @@
                 padding-right: $pad;
             }
         }
-        $_rgs-pad-placeholders: append($_rgs-pad-placeholders, $padPlaceholder) !global;
+        $_rgs-pad-placeholders: append($_rgs-pad-placeholders, $pad-placeholder) !global;
     }
-    @extend #{'%'+$padPlaceholder};
+    @extend #{'%'+$pad-placeholder};
 }

@@ -14,7 +14,7 @@
 
 @function _rgs-get-width($column, $span, $columns, $gutter) {
     $columns: _rgs-column-widths($columns, $gutter);
-    $numberOfColumns: length($columns);
+    $number-of-columns: length($columns);
     $width: 0;
     @if $span == null {
         $span: $column;

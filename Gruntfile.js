@@ -111,6 +111,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-stripcomments');
     grunt.loadNpmTasks('bootcamp');
-    grunt.registerTask('default', ['copy', 'sass:dist', 'concat', 'csslint', 'comments']);
+    grunt.registerTask('default', ['copy', 'concat', 'sass:dist', 'csslint', 'comments']);
     grunt.registerTask('test', ['sass:test', 'bootcamp']);
 };

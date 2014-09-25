@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                     'src/private/mixins/_hidden.scss',
                     'src/private/mixins/_pad.scss',
                     'src/private/mixins/_row.scss',
-                    'src/private/mixins/grid.scss',
+                    'src/private/mixins/_grid.scss',
                     'src/public/mixins/_column.scss',
                     'src/public/mixins/_full.scss',
                     'src/public/mixins/_hidden.scss',

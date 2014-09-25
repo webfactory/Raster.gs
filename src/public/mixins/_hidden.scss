@@ -1,0 +1,9 @@
+/* hides a column
+ * ---
+ * @access public
+ * ---
+ */
+
+@mixin hidden {
+    @extend %_rgs-hidden;
+}

@@ -1,0 +1,26 @@
+/* get the width from a list 
+ * ---
+ * @access private
+ * ---
+ * @param {number} - $column  - a number over 0 for the first column
+ * @param {number} - $span    - a number over $column for the length of columns
+ * @param {list}   - $columns - a list containing widths for columns
+ * @param {number} - $gutter  - a number for the gutter between columns
+ * ---
+ * @returns {number}
+ */
+
+@function _rgs-get-width($column, $span, $columns, $gutter) {
+    $columns: _rgs-column-widths($columns, $gutter);
+    $numberOfColumns: length($columns);
+    $width: 0;
+    @if $span == null {
+        $span: $column;
+    }
+    @for $n from $column through $span {
+        $col: nth($columns, $n);
+        $width: $width + $col;
+    }
+    $width: $width + ($gutter * ($span - $column));
+    @return $width;
+}

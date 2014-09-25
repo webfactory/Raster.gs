@@ -1,0 +1,17 @@
+@import '../../../src/public/raster';
+
+//@include raster($columns:4, $prefix: 'layout', $gutter: 4, $quiet: false);
+
+$semantic: (
+    columns: 4,
+    prefix: 'semantic'
+);
+
+.main {
+    @include column($semantic, 1, 3);
+}
+
+aside {
+    @include column($semantic, 4);
+}
+

@@ -1,0 +1,21 @@
+/* get the width from a list and parse it to percentages 
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {measure}
+ */
+
+@function _rgs-parse-width($column, $span, $columns, $gutter) {
+    $width: _rgs-get-width($column, $span, $columns, $gutter);
+    $parsedWidths: 0;
+    @if $width != 0 {
+        @if $width == 100.0 {
+            @return 100%;
+        } @else {
+            $parsedWidths: $width * 1%;
+        }
+    }
+    @return $parsedWidths;
+}

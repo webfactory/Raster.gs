@@ -1,0 +1,57 @@
+/* creates a new grid column
+ * ---
+ * @author Marc Mintel <marc@mintel.me>
+ * ---
+ * @access private
+ * ---
+ * @param {map}    $conf   - configuration object for columns, prefix, gutter, combinations, helpers
+ * @param {number} $column - column to fill
+ * @param {number} $span   - span of columns
+ */
+
+@mixin _rgs-column($conf, $column, $span: null) {
+    $columns: map-get($conf, columns);
+    $prefix: map-get($conf, prefix);
+    $gutter: map-get($conf, gutter);
+    $helpers: map-get($conf, helpers);
+    $combinations: map-get($conf, combinations);
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+
+    $lastIndicator: $column == $numberOfColumns;
+    @if $span != null {
+        $lastIndicator: $span == $numberOfColumns;
+    }
+    @if $column == 1 {
+        @extend %_rgs-first-column;
+    } @else if $lastIndicator {
+        @extend %_rgs-last-column;
+    } @else {
+        @extend %_rgs-default-column;
+    }
+    $marginPlaceholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
+    $widthPlaceholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
+    @if $column != 1 {
+        @if index($_rgs-margin-placeholders, $marginPlaceholder) == null {
+            @at-root {
+                #{'%'+$marginPlaceholder} {
+                    margin-left: _rgs-parse-margin($column, $columns, $gutter);
+                }
+            }
+            $_rgs-margin-placeholders: append($_rgs-margin-placeholders, $marginPlaceholder) !global;
+        }
+    }
+    @if index($_rgs-width-placeholders, $widthPlaceholder) == null {
+        @at-root {
+            #{'%'+$widthPlaceholder} {
+                width: _rgs-parse-width($column, $span, $columns, $gutter);
+            }
+        }
+        $_rgs-width-placeholders: append($_rgs-width-placeholders, $widthPlaceholder) !global;
+    }
+    
+    @if $column != 1 {
+        @extend #{'%'+$marginPlaceholder};
+    }
+    @extend #{'%'+$widthPlaceholder};
+}

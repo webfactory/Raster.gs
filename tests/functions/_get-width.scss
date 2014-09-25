@@ -1,13 +1,13 @@
 @include describe("The _rs-get-width function") {
     @include it("should return a specific column width") {
-        @include should(expect( _rs-get-width($column: 1, $span: 2, $columns: 2, $gutter: 4) ), to( be( (100) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: null, $columns: 2, $gutter: 4) ), to( be( (48) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: null, $columns: 4, $gutter: 4) ), to( be( (22) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: 2, $columns: 4, $gutter: 4) ), to( be( (48) ) ));
-        @include should(expect( _rs-get-width($column: 3, $span: 4, $columns: 4, $gutter: 4) ), to( be( (48) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: 4, $columns: 4, $gutter: 4) ), to( be( (100) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: 3, $columns: (50,25,25), $gutter: 4) ), to( be( (100) ) ));
-        @include should(expect( _rs-get-width($column: 1, $span: null, $columns: (50,25,25), $gutter: 4) ), to( be( (46) ) ));
-        @include should(expect( _rs-get-width($column: 2, $span: null, $columns: (50,25,25), $gutter: 4) ), to( be( (23) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: 2, $columns: 2, $gutter: 4) ), to( be( (100) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: null, $columns: 2, $gutter: 4) ), to( be( (48) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: null, $columns: 4, $gutter: 4) ), to( be( (22) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: 2, $columns: 4, $gutter: 4) ), to( be( (48) ) ));
+        @include should(expect( _rgs-get-width($column: 3, $span: 4, $columns: 4, $gutter: 4) ), to( be( (48) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: 4, $columns: 4, $gutter: 4) ), to( be( (100) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: 3, $columns: (50,25,25), $gutter: 4) ), to( be( (100) ) ));
+        @include should(expect( _rgs-get-width($column: 1, $span: null, $columns: (50,25,25), $gutter: 4) ), to( be( (46) ) ));
+        @include should(expect( _rgs-get-width($column: 2, $span: null, $columns: (50,25,25), $gutter: 4) ), to( be( (23) ) ));
     }
 }

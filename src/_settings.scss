@@ -1,9 +1,53 @@
-$_rs-grid-row-created: false;
+/* status for the creation of a grid row
+ * ---
+ * @access private
+ * ---
+ * @type bool
+ */
+$_rgs-grid-row-created: false;
 
-/*
- * set the name of the class that is used as a grid row
+/* collects placeholders for widths
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-width-placeholders: ();
+
+/* collects placeholders for margins
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-margin-placeholders: ();
+
+/* collects placeholders for paddings
+ * ---
+ * @access private
+ * ---
+ * @type list
+ */
+$_rgs-pad-placeholders: ();
+
+/* default config
+ * ---
+ * @access private
+ * ---
+ * @type map
+ */
+$_rgs-defaults:(
+    columns: 12,
+    prefix: 'column',
+    gutter: 4,
+    combinations: true,
+    helpers: true
+);
+
+/* set the name of the class that is used as a grid row
+ * ---
+ * @access public
  * ---
  * @type string
  */
-
-$rs-grid-row: '.raster' !default;
+$rgs-grid-row: 'grid-row' !default;

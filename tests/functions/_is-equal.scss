@@ -1,10 +1,10 @@
 @include describe("The _rs-is-equal function") {
     @include it("should return true if all columns have the same ratio") {
-        @include should(expect( _rs-is-equal(2) ), to( equal( (true) ) ));
-        @include should(expect( _rs-is-equal((20,20,20,20,20)) ), to( equal( (true) ) ));
+        @include should(expect( _rgs-is-equal(2) ), to( equal( (true) ) ));
+        @include should(expect( _rgs-is-equal((20,20,20,20,20)) ), to( equal( (true) ) ));
     }
     @include it("should return false if any column has a different ratio") {
-        @include should(expect( _rs-is-equal((20,20,60)) ), to( equal( (false) ) ));
-        @include should(expect( _rs-is-equal((50,20,10)) ), to( equal( (false) ) ));
+        @include should(expect( _rgs-is-equal((20,20,60)) ), to( equal( (false) ) ));
+        @include should(expect( _rgs-is-equal((50,20,10)) ), to( equal( (false) ) ));
     }
 }

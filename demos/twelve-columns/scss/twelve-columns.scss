@@ -1,0 +1,6 @@
+@import '../../../src/public/raster';
+
+$twelve-column: (
+    columns: 12
+);
+@include raster($twelve-column);

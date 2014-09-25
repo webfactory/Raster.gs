@@ -1,0 +1,29 @@
+/* checks if there are equal columns or ratio based ones
+ * ---
+ * @access private
+ * ---
+ * @param {list} $columns - a list of columns 
+ * ---
+ * @return {bool}
+ */
+
+@function _rgs-is-equal($columns) {
+    @if type-of($columns) == number {
+        @return true;
+    } @else if type-of($columns) == list {
+        $equalColumns: true;
+        $oldColumn: false;
+        @each $column in $columns {
+            @if $oldColumn == false {
+                $oldColumn: $column;
+            } @else {
+                @if $column != $oldColumn {
+                    $equalColumns: false;
+                }
+            }
+            $oldColumn: $column;
+        }
+        @return $equalColumns;
+    }
+    @return false;
+}

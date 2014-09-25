@@ -1,0 +1,25 @@
+/* creates a new padding for a column
+ * ---
+ * @access public
+ * ---
+ * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ */
+
+@mixin pad($conf) {
+    $gutter: map-get($conf, gutter);
+    $prefix: map-get($conf, prefix);
+    $padPlaceholder: #{$prefix}-placeholder-margin-#{$gutter};
+    @if index($_rgs-pad-placeholders, $padPlaceholder) == null {
+        @at-root {
+            #{'%'+$padPlaceholder} {
+                $pad: $gutter * 1% * 0.5;
+                position: relative;
+                left: -$pad;
+                padding-left: $pad;
+                padding-right: $pad;
+            }
+        }
+        $_rgs-pad-placeholders: append($_rgs-pad-placeholders, $padPlaceholder) !global;
+    }
+    @extend #{'%'+$padPlaceholder};
+}

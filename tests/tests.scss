@@ -1,13 +1,13 @@
 @import 'bootcamp/dist/bootcamp';
-@import '../src/private/raster';
+@import '../src/public/raster';
 
 @include runner-start;
 
-//@import 'functions/is-equal';
-//@import 'functions/parse-columns';
-//@import 'functions/column-margins';
-//@import 'functions/column-widths';
-//@import 'functions/get-width';
+@import 'functions/is-equal';
+@import 'functions/parse-columns';
+@import 'functions/column-margins';
+@import 'functions/column-widths';
+@import 'functions/get-width';
 @import 'functions/get-margin';
 
 @include runner-end;

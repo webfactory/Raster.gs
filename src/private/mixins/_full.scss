@@ -1,0 +1,9 @@
+/* creates a fullsize column
+ * ---
+ * @access private
+ * ---
+ */
+
+@mixin _rgs-full {
+    @extend %_rgs-full;
+}

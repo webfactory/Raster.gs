@@ -1,0 +1,24 @@
+/* calculates the width for each column 
+ * ---
+ * @access private
+ * ---
+ * @param {list}   $columns - list containing widths for columns
+ * @param {number} $gutter  - size of gutter 
+ * ---
+ * @returns {list}
+ */
+
+@function _rgs-column-widths($columns, $gutter) {
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+    $totalGutterWidth: $gutter * ($numberOfColumns - 1);
+    $totalWidth: 100 - $totalGutterWidth;
+    $widths: ();
+    @each $column in $columns {
+        @if $column != $columns {
+            $width: $totalWidth * ($column / 100);
+            $widths: append($widths, $width);
+        }
+    }
+    @return $widths;
+}

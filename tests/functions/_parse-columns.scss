@@ -1,7 +1,7 @@
 @include describe("The _rs-parse-columns function") {
     @include it("should transform a number into a list of equal ratios") {
-        @include should(expect( _rs-parse-columns(2) ), to( be( ( (50,50) ) ) ));
-        @include should(expect( _rs-parse-columns(4) ), to( be( ( (25,25,25,25) ) ) ));
-        @include should(expect( _rs-parse-columns( (50,50) ) ), to( be( ( (50,50) ) ) ));
+        @include should(expect( _rgs-parse-columns(2) ), to( be( ( (50,50) ) ) ));
+        @include should(expect( _rgs-parse-columns(4) ), to( be( ( (25,25,25,25) ) ) ));
+        @include should(expect( _rgs-parse-columns( (50,50) ) ), to( be( ( (50,50) ) ) ));
     }
 }

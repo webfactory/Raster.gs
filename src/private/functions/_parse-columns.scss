@@ -1,0 +1,20 @@
+/* transforms column from number to list, leaves lists as is
+ * ---
+ * @access private
+ * ---
+ * @param {number|list} $columns - columns to parse 
+ * ---
+ * @return {list}
+ */
+
+@function _rgs-parse-columns($columns) {
+    @if type-of($columns) == number {
+        $cols: ();
+        @for $i from 1 through $columns {
+            $column: 100/$columns;
+            $cols: append($cols, $column)
+        }
+        @return $cols;
+    }
+    @return $columns;
+}

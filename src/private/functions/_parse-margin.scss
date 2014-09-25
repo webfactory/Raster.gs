@@ -1,0 +1,21 @@
+/* get a margin from a list and parse it to percentages
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {measure}
+ */
+
+@function _rgs-parse-margin($column, $columns, $gutter) {
+    $margin: _rgs-get-margin($column, $columns, $gutter);
+    $parsedMargin: 0;
+    @if $margin != 0 {
+        @if $margin == 100.0 {
+            @return 100%;
+        } @else {
+            $parsedMargin: $margin * 1%;
+        }
+    }
+    @return $parsedMargin;
+}

@@ -1,6 +1,6 @@
 @include describe("The _rs-get-margin function") {
     @include it("should return a specific column margin") {
-        @include should(expect( _rs-get-margin($column: 1, $columns: 2, $gutter: 4) ), to( be( (0) ) ));
-        @include should(expect( _rs-get-margin($column: 2, $columns: 2, $gutter: 4) ), to( be( (52) ) ));
+        @include should(expect( _rgs-get-margin($column: 1, $columns: 2, $gutter: 4) ), to( be( (0) ) ));
+        @include should(expect( _rgs-get-margin($column: 2, $columns: 2, $gutter: 4) ), to( be( (52) ) ));
     }
 }

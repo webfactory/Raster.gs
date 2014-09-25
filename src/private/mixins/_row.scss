@@ -1,0 +1,9 @@
+/* creates a new row
+ * ---
+ * @access private
+ * ---
+ */
+
+@mixin _rgs-row {
+    @extend %_rgs-grid-row;
+}

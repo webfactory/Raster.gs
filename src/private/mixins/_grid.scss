@@ -1,0 +1,55 @@
+/* creates a new grid system
+ * ---
+ * @access private
+ * ---
+ * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ */
+
+@mixin _rgs-grid($conf) {
+    $columns: map-get($conf, columns);
+    $prefix: map-get($conf, prefix);
+    $gutter: map-get($conf, gutter);
+    $helpers: map-get($conf, helpers);
+    $combinations: map-get($conf, combinations);
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+    @for $column from 1 through $numberOfColumns {
+        .#{$prefix}-#{$column} {
+            @include _rgs-column($conf, $column);
+        }
+    }
+
+    @if $combinations {
+        @for $column from 1 through ($numberOfColumns - 1) { //remove 1 from the list because we don't want a combination for the last column
+            @for $span from ($column + 1) through $numberOfColumns {
+                .#{$prefix}-#{$column}-#{$span} {
+                    @include _rgs-column($conf, $column, $span);
+                }
+            }
+        }
+    }
+
+    @if $helpers {
+        @if $gutter != 0 {
+            .#{$prefix}-pad {
+                @include _rgs-pad($conf);
+            }
+        }
+
+        //provide a more semantic selector for full width columns
+        .#{$prefix}-full {
+            @include _rgs-full;
+        }
+
+        //provide a selector for hidden columns
+        .#{$prefix}-hidden {
+            @include _rgs-hidden;
+        }
+    }
+
+    @if not $_rgs-grid-row-created {
+        .#{$rgs-grid-row} {
+            @include _rgs-grid-row;
+        }
+    }
+}

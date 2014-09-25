@@ -1,7 +1,7 @@
 @include describe("The _rs-column-margins function") {
     @include it("should return a list of margins for the columns") {
-        @include should(expect( _rs-column-margins($columns: 2, $gutter: 4) ), to( be( (0,52) ) ));
-        @include should(expect( _rs-column-margins($columns: 4, $gutter: 4) ), to( be( (0,26,52,78) ) ));
-        @include should(expect( _rs-column-margins($columns: (50,25,25), $gutter: 4) ), to( be( (0,50,77) ) ));
+        @include should(expect( _rgs-column-margins($columns: 2, $gutter: 4) ), to( be( (0,52) ) ));
+        @include should(expect( _rgs-column-margins($columns: 4, $gutter: 4) ), to( be( (0,26,52,78) ) ));
+        @include should(expect( _rgs-column-margins($columns: (50,25,25), $gutter: 4) ), to( be( (0,50,77) ) ));
     }
 }

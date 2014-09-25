@@ -1,0 +1,24 @@
+/* creates a new grid column
+ * ---
+ * @author Marc Mintel <marc@mintel.me>
+ * ---
+ * @access public
+ * ---
+ * @param {map}    $conf   - configuration object for columns, prefix, gutter, combinations, helpers
+ * @param {number} $column - column to fill
+ * @param {number} $span   - span of columns
+ * ---
+ * @throws '$column for mixin `column` must be a number.'
+ * @throws '$span for mixin `column` must be a number.'
+ */
+
+@mixin column($conf, $column, $span:null) {
+    @if type-of($column) != number {
+        @error '$column for mixin `column` must be a number.';
+    }
+    @if type-of($span) != number and $span != null {
+        @error '$span for mixin `column` must be a number.';
+    }
+    $conf: map-merge($_rgs-defaults, $conf);
+    @include _rgs-column($conf, $column, $span);
+}

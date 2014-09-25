@@ -1,0 +1,23 @@
+/* calculates the margin for each column 
+ * ---
+ * @access private
+ * ---
+ * @param {number|list}
+ * ---
+ * @returns {list}
+ */
+
+@function _rgs-column-margins($columns, $gutter) {
+    $columns: _rgs-parse-columns($columns);
+    $numberOfColumns: length($columns);
+    $margin: 0;
+    $margins: ($margin); //first margin is always 0
+    //loop through columns except last one, there is no column
+    //after the last one so we dont need a margin for that
+    @for $n from 1 through $numberOfColumns - 1 {
+        $span: _rgs-get-width(1, $n, $columns, $gutter);
+        $margin: $span + $gutter;
+        $margins: append($margins, $margin);
+    }
+    @return $margins;
+}

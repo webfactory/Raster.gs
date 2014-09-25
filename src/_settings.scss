@@ -13,6 +13,10 @@ $_rgs-grid-row-created: false;
  * @type list
  */
 $_rgs-width-placeholders: ();
+$_rgs-float-right-placeholders: ();
+$_rgs-margin-right-placeholders: ();
+$_rgs-float-left-placeholders: ();
+$_rgs-clear-left-placeholders: ();
 
 /* collects placeholders for margins
  * ---
@@ -20,7 +24,7 @@ $_rgs-width-placeholders: ();
  * ---
  * @type list
  */
-$_rgs-margin-placeholders: ();
+$_rgs-margin-left-placeholders: ();
 
 /* collects placeholders for paddings
  * ---

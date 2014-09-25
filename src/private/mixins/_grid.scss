@@ -48,8 +48,10 @@
             @include _rgs-hidden;
         }
     }
+}
 
-    @if not $_rgs-grid-row-created {
+@if not $_rgs-grid-row-created {
+    @at-root {
         .#{$rgs-grid-row} {
             @include _rgs-row;
         }

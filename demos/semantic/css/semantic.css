@@ -1,23 +1,29 @@
-aside {
-  float: right;
+.grid-row {
+  *zoom: 1;
+}
+.grid-row:before, .grid-row:after {
+  content: " ";
+  display: table;
+}
+.grid-row:after {
+  clear: both;
 }
 
 .main {
-  margin-right: -100%;
-  float: left;
-}
-
-.main {
-  margin-left: 0;
   clear: left;
 }
-
+.main {
+  float: left;
+}
+.main {
+  margin-right: -100%;
+}
 .main {
   width: 74%;
 }
 
 aside {
-  margin-left: 78%;
+  float: right;
 }
 aside {
   width: 22%;

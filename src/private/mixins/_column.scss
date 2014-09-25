@@ -20,29 +20,83 @@
     $columns: _rgs-parse-columns($columns);
     $numberOfColumns: length($columns);
 
+//    @at-root {
+//        %_rgs-#{$prefix}-last-column {
+//            float: right;
+//        }
+//    
+//        %_rgs-#{$prefix}-default-column {
+//            margin-right: -100%;
+//            float: left;
+//        }
+//    
+//        %_rgs-#{$prefix}-first-column {
+//            @extend %_rgs-default-column;
+//            margin-left: 0;
+//            clear: left;
+//        }
+//    }
+
     $lastIndicator: $column == $numberOfColumns;
     @if $span != null {
         $lastIndicator: $span == $numberOfColumns;
     }
-    @if $column == 1 {
-        @extend %_rgs-first-column;
-    } @else if $lastIndicator {
-        @extend %_rgs-last-column;
-    } @else {
-        @extend %_rgs-default-column;
+
+    $clearLeftPlaceholder: #{$prefix}-clear-left;
+    @if index($_rgs-clear-left-placeholders, $clearLeftPlaceholder) == null {
+        @at-root {
+            #{'%'+$clearLeftPlaceholder} {
+                clear: left;
+            }
+        }
+        $_rgs-clear-left-placeholders: append($_rgs-clear-left-placeholders, $clearLeftPlaceholder) !global;
     }
-    $marginPlaceholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
-    $widthPlaceholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
-    @if $column != 1 {
-        @if index($_rgs-margin-placeholders, $marginPlaceholder) == null {
+
+
+    $floatRightPlaceholder: #{$prefix}-float-right;
+    @if $lastIndicator {
+        @if index($_rgs-float-right-placeholders, $floatRightPlaceholder) == null {
             @at-root {
-                #{'%'+$marginPlaceholder} {
+                #{'%'+$floatRightPlaceholder} {
+                    float: right;
+                }
+            }
+            $_rgs-float-right-placeholders: append($_rgs-float-right-placeholders, $floatRightPlaceholder) !global;
+        }
+    }
+
+    $floatLeftPlaceholder: #{$prefix}-float-left;
+    @if index($_rgs-float-left-placeholders, $floatLeftPlaceholder) == null {
+        @at-root {
+            #{'%'+$floatLeftPlaceholder} {
+                float: left;
+            }
+        }
+        $_rgs-float-left-placeholders: append($_rgs-float-left-placeholders, $floatLeftPlaceholder) !global;
+    }
+
+    $marginRightPlaceholder: #{$prefix}-margin-right;
+    @if index($_rgs-margin-right-placeholders, $marginRightPlaceholder) == null {
+        @at-root {
+            #{'%'+$marginRightPlaceholder} {
+                margin-right: -100%;
+            }
+        }
+        $_rgs-margin-right-placeholders: append($_rgs-margin-right-placeholders, $marginRightPlaceholder) !global;
+    }
+    
+    $marginLeftPlaceholder: #{$prefix}-placeholder-margin-#{ceil(_rgs-get-margin($column, $columns, $gutter))};
+    @if $column != 1 {
+        @if index($_rgs-margin-left-placeholders, $marginLeftPlaceholder) == null {
+            @at-root {
+                #{'%'+$marginLeftPlaceholder} {
                     margin-left: _rgs-parse-margin($column, $columns, $gutter);
                 }
             }
-            $_rgs-margin-placeholders: append($_rgs-margin-placeholders, $marginPlaceholder) !global;
+            $_rgs-margin-left-placeholders: append($_rgs-margin-left-placeholders, $marginLeftPlaceholder) !global;
         }
     }
+    $widthPlaceholder: #{$prefix}-placeholder-width-#{ceil(_rgs-get-width($column, $span, $columns, $gutter))};
     @if index($_rgs-width-placeholders, $widthPlaceholder) == null {
         @at-root {
             #{'%'+$widthPlaceholder} {
@@ -52,8 +106,17 @@
         $_rgs-width-placeholders: append($_rgs-width-placeholders, $widthPlaceholder) !global;
     }
     
-    @if $column != 1 {
-        @extend #{'%'+$marginPlaceholder};
+    @if $column == 1 {
+        @extend #{'%'+$floatLeftPlaceholder};
+        @extend #{'%'+$clearLeftPlaceholder};
+    } @else if $lastIndicator {
+        @extend #{'%'+$floatRightPlaceholder};                
+    } @else {
+        @extend #{'%'+$marginLeftPlaceholder} !optional;
+        @extend #{'%'+$floatLeftPlaceholder};
+    } 
+    @if not $lastIndicator {
+        @extend #{'%'+$marginRightPlaceholder};
     }
     @extend #{'%'+$widthPlaceholder};
 }

@@ -6,5 +6,7 @@
  */
 
 @mixin _rgs-full {
-    @extend %_rgs-full;
+    clear: left;
+    margin-left: 0;
+    width: 100%;
 }

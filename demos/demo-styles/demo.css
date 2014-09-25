@@ -4,11 +4,11 @@ body {
     width: 70%;
     line-height: 1.5;
 }
-.raster {
+.grid-row {
     margin-bottom: 20px;
 }
 
-.column-pad {
+div[class$=pad] {
     padding-top: 20px;
     padding-bottom: 20px;
     background: #EEE;

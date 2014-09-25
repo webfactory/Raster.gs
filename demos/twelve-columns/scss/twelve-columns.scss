@@ -1,6 +1,16 @@
 @import '../../../dist/raster';
 
-$twelve-column: (
-    columns: 12
+$col-md: (
+    columns: 12,
+    prefix: col-md
 );
-@include raster($twelve-column);
+@media (min-width:768px) and (max-width: 1024px) {
+    @include raster($col-md);
+}
+$col-l: (
+        columns: 12,
+        prefix: col-l
+);
+@media (min-width: 1024px) {
+    @include raster($col-l);
+}

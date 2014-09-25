@@ -5,6 +5,8 @@
  * @param {number|list} $columns - columns to parse 
  * ---
  * @return {list}
+ * ---
+ * @since 3.0.0
  */
 
 @function _rgs-parse-columns($columns) {

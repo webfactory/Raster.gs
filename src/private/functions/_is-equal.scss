@@ -5,6 +5,8 @@
  * @param {list} $columns - a list of columns 
  * ---
  * @return {bool}
+ * ---
+ * @since 3.0.0
  */
 
 @function _rgs-is-equal($columns) {

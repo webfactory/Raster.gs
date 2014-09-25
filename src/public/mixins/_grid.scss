@@ -12,6 +12,8 @@
  * @throws '$gutter for mixin `raster` must be a number.'
  * @throws '$combinations for mixin `raster` must be a boolean.'
  * @throws '$helpers for mixin `raster` must be a boolean.'
+ * ---
+ * @since 3.0.0
  */
 
 @mixin raster($conf:()) {

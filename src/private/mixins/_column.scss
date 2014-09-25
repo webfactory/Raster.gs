@@ -7,6 +7,8 @@
  * @param {map}    $conf   - configuration object for columns, prefix, gutter, combinations, helpers
  * @param {number} $column - column to fill
  * @param {number} $span   - span of columns
+ * ---
+ * @since 3.0.0
  */
 
 @mixin _rgs-column($conf, $column, $span: null) {

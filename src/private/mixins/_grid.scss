@@ -3,6 +3,8 @@
  * @access private
  * ---
  * @param {map} $conf - configuration object for columns, prefix, gutter, combinations, helpers
+ * ---
+ * @since 3.0.0
  */
 
 @mixin _rgs-grid($conf) {

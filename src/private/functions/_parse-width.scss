@@ -5,6 +5,8 @@
  * @param {number|list}
  * ---
  * @returns {measure}
+ * ---
+ * @since 3.0.0
  */
 
 @function _rgs-parse-width($column, $span, $columns, $gutter) {

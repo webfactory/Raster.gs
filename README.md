@@ -1,19 +1,18 @@
 Raster.gs [![Build Status](https://travis-ci.org/webfactory/Raster.gs.svg)](https://travis-ci.org/webfactory/Raster.gs)
 =========
 
-Raster.gs is a SCSS based grid system with the following features:
+Raster.gs is an SCSS based grid system with the following features:
 * you can use more than one grid and choose different grids for different devices
 * nest grids as deep as you want
 * create grids with uniform-width columns or completely weird ratio-based ones
 * leave columns out, no need for `offset`-classes
 * independence of any frameworks
-* support for older browsers
 * toggle different options to avoid creation of unneeded classes
 * clever extends avoid messing up compiled css
+* support for older browsers
 
 ## Demo
-Play with it on codepen:
-http://codepen.io/wfmarc/pen/ACrhv
+Play with it on [codepen] (http://codepen.io/wfmarc/pen/ACrhv).
 
 Or see some prepared demos in `demos/`. 
 
@@ -21,7 +20,7 @@ Or see some prepared demos in `demos/`.
 Sass > 3.4.5
 
 ## Installation
-Import the _raster.scss file into your Sass files to import the needed mixins and start creating your own grids.
+Import the `_raster.scss` file into your Sass files to import the needed mixins and start creating your own grids.
 ```SCSS
 @import 'PATH/raster.gs/dist/_raster.scss';
 ```
@@ -42,9 +41,16 @@ Add this line to your requirements in composer.json
 
 ## Using the grid
 ### The SCSS part
-Include the mixin _raster_ in your Sass to generate a new grid.
+Include the mixin `raster()` in your Sass to generate a new grid. Raster.gs uses [configuration objects] (http://hugogiraudel.com/2014/05/05/bringing-configuration-objects-to-sass/).
 ```SCSS
-@include raster($columns: 12, $prefix: 'column', $gutter: 4, $combinations: true, $helpers: true, $quiet: false);
+$conf: (
+    columns: 12,
+    prefix: 'column',
+    gutter: 4,
+    combinations: true,
+    helpers: true
+);
+@include raster($conf);
 ```
 
 #### `$columns`
@@ -55,7 +61,11 @@ This defines the number of your columns which must be either a number or a list 
 #### `$prefix`
 This is a prefix for the CSS classes that are created, it must be a string. The default is `'column'`.
 ```SCSS
-@include raster($columns: 4, $prefix: 'test');
+$conf: (
+    columns: 4,
+    prefix: 'test'
+);
+@include raster($conf);
 ```
 The code above creates the following CSS classes which present columns from 1 to 4:
 * test-1
@@ -64,32 +74,56 @@ The code above creates the following CSS classes which present columns from 1 to
 * test-4
 * and their combinations (more on this below)
 
-Giving your grids unique names makes it possible to generate an infinite number of grids, so you can even use them in your mediaqueries like this:
+Giving your grids unique names makes it possible to generate an infinite number of grids, that way you can even use them in your mediaqueries like this:
 ```SCSS
 @media (max-width:768px){
-    @include raster($columns:4, $prefix: 'tablet');
+    $tablet: (
+        columns: 4, 
+        prefix: 'tablet'
+    );
+    @include raster($tablet);
 }
 @media (min-width:769px){
-    @include raster($columns:8, $prefix: 'desktop');
+    $desktop: (
+        columns: 8, 
+        prefix: 'desktop'
+    );
+    @include raster($desktop);
 }
 ```
 Because of that you could even use a grid for different purposes, maybe one grid for layout and another one for a gallery.
 ```SCSS
-@include raster(4, $prefix: layout);
-@include raster(8, $prefix: gallery);
+$layout: (
+    columns: 4,
+    $prefix: layout
+);
+@include raster($layout);
+$gallery: (
+    columns: 8,
+    prefix: gallery
+);
+@include raster($gallery);
 ```
 
 #### `$gutter`
 This is the width of your gutters between your columns. It must be a number.
 ```SCSS
-@include raster($columns: 4, $gutterWidth: 10);
+$conf: (
+    columns: 4,
+    gutter: 10
+);
+@include raster($conf);
 ```
 The code above creates a grid with four columns where the gutters are 10% width.
 
 #### `$combinations`
 This decides whether to create CSS classes with combinations of your columns or not. It must be a boolean (true or false). By default this is set to true.
 ```SCSS
-@include raster($columns: 4, $combinations:true);
+$conf: (
+    columns: 4,
+    combinations: true
+);
+@include raster($conf);
 ```
 Additionally to the generated CSS classes mentioned before the above code creates the following classes:
 * test-1-2
@@ -135,14 +169,18 @@ You can also nest different grids
 ## Settings
 The following variables can be overwritten in your project:
 ```SCSS
-$rgs-grid-row: 'raster';
+$rgs-grid-row: 'grid-row'; //set the name of a row
 ```
 
 ## Browsersupport
 Raster.gs works from Internet Explorer 8 and up.
 
+## Todo
+Want to help? Got some things to do!
+* include SassDoc
+
 ## Changelog
-### 2.2
+### 3.0.0
 * $gutter default is now 4 (was 2 before)
 * replaced $quiet mode with column mixins
 * removed `first` helper
@@ -154,9 +192,11 @@ Raster.gs works from Internet Explorer 8 and up.
 * included pad classes
 * `.grid-row` is now `.raster`
 * added some demos
-### 2.1
+
+### 2.1.0
 * $gutterWidth is now $gutter
 * gutters are now two paddings
+
 ### 2.0
 * mixin `grid` is now `raster`
 * introduced `$quiet` mode

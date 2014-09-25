@@ -8,6 +8,8 @@
  * @param {number} - $gutter  - a number for the gutter between columns
  * ---
  * @returns {number}
+ * ---
+ * @since 3.0.0
  */
 
 @function _rgs-get-width($column, $span, $columns, $gutter) {

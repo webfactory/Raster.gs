@@ -21,10 +21,8 @@ Or see some prepared demos in `demos/`.
 Sass > 3.4.5
 
 ## Installation
-Import the `_raster.scss` file into your Sass files to import the needed mixins and start creating your own grids.
-```SCSS
-@import 'PATH/raster.gs/dist/_raster.scss';
-```
+### Download
+You can just [downloa] (https://github.com/webfactory/Raster.gs/archive/master.zip) the files, but I recommend you to use [bower] (http://bower.io) for that!
 
 ### Package manager
 Raster.gs is registered in Packagist and Bower.
@@ -38,6 +36,12 @@ bower install raster.gs
 Add this line to your requirements in composer.json
 ```
 "webfactory/raster.gs": "dev-master"
+```
+
+### Get into your project
+Import the `_raster.scss` file into your Sass files to import the needed mixins and start creating your own grids.
+```SCSS
+@import 'PATH/raster.gs/dist/_raster.scss';
 ```
 
 ## Using the grid
